@@ -58,10 +58,6 @@
       margin-bottom: 8px;
     }
 
-    .brand-pill span {
-      font-size: 0.9rem;
-    }
-
     header h1 {
       margin: 0;
       font-size: 2.2rem;
@@ -89,7 +85,8 @@
     }
 
     .btn-primary,
-    .btn-ghost {
+    .btn-ghost,
+    .btn-secondary {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -111,6 +108,12 @@
       box-shadow: 0 6px 14px rgba(0, 0, 0, 0.16);
     }
 
+    .btn-secondary {
+      background: #0f9d58;
+      color: #fff;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.16);
+    }
+
     .btn-ghost {
       background: rgba(255, 255, 255, 0.8);
       color: var(--accent);
@@ -118,15 +121,25 @@
     }
 
     .btn-primary:hover,
-    .btn-ghost:hover {
+    .btn-ghost:hover,
+    .btn-secondary:hover {
       transform: translateY(-1px);
       box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
     }
 
     .btn-primary:active,
-    .btn-ghost:active {
+    .btn-ghost:active,
+    .btn-secondary:active {
       transform: translateY(0);
       box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    .btn-primary:disabled,
+    .btn-secondary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
     }
 
     /* MENU LAYOUT */
@@ -263,8 +276,86 @@
       color: var(--text-muted);
     }
 
+    .qty-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .qty-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .qty-input {
+      width: 72px;
+      padding: 4px 6px;
+      border-radius: 999px;
+      border: 1px solid #e0d4c5;
+      font-size: 0.85rem;
+      text-align: center;
+      outline: none;
+    }
+
+    .qty-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(194, 123, 24, 0.2);
+    }
+
+    /* CART SUMMARY */
+
+    .cart-summary {
+      margin-top: 16px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .cart-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .total-label {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .total-amount {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #1f3f2a;
+    }
+
+    .cart-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    textarea#orderDetails {
+      width: 100%;
+      min-height: 90px;
+      resize: vertical;
+      border-radius: 12px;
+      border: 1px solid #e2d6c7;
+      padding: 8px 10px;
+      font-size: 0.8rem;
+      font-family: inherit;
+      background: #fdf9f4;
+      color: #333;
+    }
+
     .note {
-      margin-top: 12px;
+      margin-top: 8px;
       font-size: 0.78rem;
       text-align: center;
       color: var(--text-muted);
@@ -292,14 +383,14 @@
           target="_blank"
           rel="noopener noreferrer"
         >
-          📲 Order on WhatsApp
+          📲 Chat on WhatsApp
         </a>
         <button
           class="btn-ghost"
           type="button"
           onclick="window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });"
         >
-          📃 View full menu
+          📃 Scroll to full menu
         </button>
       </div>
     </header>
@@ -318,76 +409,112 @@
         </div>
 
         <div class="items-grid">
-          <div class="item-card">
+          <div class="item-card" data-name="Ghee Mysore Pak" data-price="200" data-unit="250 gm">
             <div class="item-top-row">
               <div class="item-name">Ghee Mysore Pak</div>
               <div class="item-price">₹ 200 / 250&nbsp;gm</div>
             </div>
             <div class="item-meta">Rich, soft, ghee-based sweet</div>
+            <div class="qty-row">
+              <span class="qty-label">Qty (packs):</span>
+              <input class="qty-input" type="number" min="0" value="0" />
+            </div>
           </div>
 
-          <div class="item-card">
+          <div class="item-card" data-name="Laddu" data-price="150" data-unit="250 gm">
             <div class="item-top-row">
               <div class="item-name">Laddu</div>
               <div class="item-price">₹ 150 / 250&nbsp;gm</div>
             </div>
             <div class="item-meta">Classic boondi laddu</div>
+            <div class="qty-row">
+              <span class="qty-label">Qty (packs):</span>
+              <input class="qty-input" type="number" min="0" value="0" />
+            </div>
           </div>
 
-          <div class="item-card">
+          <div class="item-card" data-name="Maa Laddu" data-price="150" data-unit="250 gm">
             <div class="item-top-row">
               <div class="item-name">Maa Laddu</div>
               <div class="item-price">₹ 150 / 250&nbsp;gm</div>
             </div>
             <div class="item-meta">Roasted gram flour sweet balls</div>
+            <div class="qty-row">
+              <span class="qty-label">Qty (packs):</span>
+              <input class="qty-input" type="number" min="0" value="0" />
+            </div>
           </div>
 
-          <div class="item-card">
+          <div class="item-card" data-name="Sweet Somas" data-price="75" data-unit="5 pieces">
             <div class="item-top-row">
               <div class="item-name">Sweet Somas</div>
               <div class="item-price">₹ 75 / 5 pcs</div>
             </div>
             <div class="item-meta">Crispy outer, sweet filling</div>
+            <div class="qty-row">
+              <span class="qty-label">Qty (sets of 5):</span>
+              <input class="qty-input" type="number" min="0" value="0" />
+            </div>
           </div>
 
-          <div class="item-card">
+          <div class="item-card" data-name="Adhirasam" data-price="150" data-unit="250 gm">
             <div class="item-top-row">
               <div class="item-name">Adhirasam</div>
               <div class="item-price">₹ 150 / 250&nbsp;gm</div>
             </div>
             <div class="item-meta">Traditional jaggery-based sweet</div>
+            <div class="qty-row">
+              <span class="qty-label">Qty (packs):</span>
+              <input class="qty-input" type="number" min="0" value="0" />
+            </div>
           </div>
 
-          <div class="item-card">
+          <div class="item-card" data-name="Boli" data-price="25" data-unit="piece">
             <div class="item-top-row">
               <div class="item-name">Boli</div>
               <div class="item-price">₹ 25 / piece</div>
             </div>
             <div class="item-meta">Soft chana-dal sweet poli</div>
+            <div class="qty-row">
+              <span class="qty-label">Qty (pieces):</span>
+              <input class="qty-input" type="number" min="0" value="0" />
+            </div>
           </div>
 
-          <div class="item-card">
+          <div class="item-card" data-name="Vanilla Burfi" data-price="185" data-unit="250 gm">
             <div class="item-top-row">
               <div class="item-name">Vanilla Burfi</div>
               <div class="item-price">₹ 185 / 250&nbsp;gm</div>
             </div>
             <div class="item-meta">Milk-based barfi with vanilla flavour</div>
+            <div class="qty-row">
+              <span class="qty-label">Qty (packs):</span>
+              <input class="qty-input" type="number" min="0" value="0" />
+            </div>
           </div>
 
-          <div class="item-card">
+          <div class="item-card" data-name="Peanut Burfi" data-price="95" data-unit="200 gm">
             <div class="item-top-row">
               <div class="item-name">Peanut Burfi</div>
               <div class="item-price">₹ 95 / 200&nbsp;gm</div>
             </div>
             <div class="item-meta">Groundnut jaggery squares</div>
+            <div class="qty-row">
+              <span class="qty-label">Qty (packs):</span>
+              <input class="qty-input" type="number" min="0" value="0" />
+            </div>
           </div>
 
-          <div class="item-card">
+          <div class="item-card" data-name="Sesame Burfi" data-price="65" data-unit="100 gm">
             <div class="item-top-row">
               <div class="item-name">Sesame Burfi</div>
               <div class="item-price">₹ 65 / 100&nbsp;gm</div>
             </div>
             <div class="item-meta">Ellu (til) sweet squares</div>
+            <div class="qty-row">
+              <span class="qty-label">Qty (packs):</span>
+              <input class="qty-input" type="number" min="0" value="0" />
+            </div>
           </div>
         </div>
       </section>
@@ -400,52 +527,76 @@
         </div>
 
         <div class="items-grid">
-          <div class="item-card">
+          <div class="item-card" data-name="Idly Podi" data-price="75" data-unit="100 gm">
             <div class="item-top-row">
               <div class="item-name">Idly Podi</div>
               <div class="item-price">₹ 75 / 100&nbsp;gm</div>
             </div>
             <div class="item-meta">Gun-powder for idly &amp; dosa</div>
+            <div class="qty-row">
+              <span class="qty-label">Qty (packs):</span>
+              <input class="qty-input" type="number" min="0" value="0" />
+            </div>
           </div>
 
-          <div class="item-card">
+          <div class="item-card" data-name="Rasam Podi" data-price="60" data-unit="50 gm">
             <div class="item-top-row">
               <div class="item-name">Rasam Podi</div>
               <div class="item-price">₹ 60 / 50&nbsp;gm</div>
             </div>
             <div class="item-meta">Fragrant spice mix for rasam</div>
+            <div class="qty-row">
+              <span class="qty-label">Qty (packs):</span>
+              <input class="qty-input" type="number" min="0" value="0" />
+            </div>
           </div>
 
-          <div class="item-card">
+          <div class="item-card" data-name="Paruppu Podi" data-price="75" data-unit="100 gm">
             <div class="item-top-row">
               <div class="item-name">Paruppu Podi</div>
               <div class="item-price">₹ 75 / 100&nbsp;gm</div>
             </div>
             <div class="item-meta">Dal powder for rice &amp; ghee</div>
+            <div class="qty-row">
+              <span class="qty-label">Qty (packs):</span>
+              <input class="qty-input" type="number" min="0" value="0" />
+            </div>
           </div>
 
-          <div class="item-card">
+          <div class="item-card" data-name="Tomato Thokku" data-price="75" data-unit="100 gm">
             <div class="item-top-row">
               <div class="item-name">Tomato Thokku</div>
               <div class="item-price">₹ 75 / 100&nbsp;gm</div>
             </div>
             <div class="item-meta">Tangy tomato pickle</div>
+            <div class="qty-row">
+              <span class="qty-label">Qty (packs):</span>
+              <input class="qty-input" type="number" min="0" value="0" />
+            </div>
           </div>
 
-          <div class="item-card">
+          <div class="item-card" data-name="Amla Pickle" data-price="70" data-unit="100 gm">
             <div class="item-top-row">
               <div class="item-name">Amla Pickle</div>
               <div class="item-price">₹ 70 / 100&nbsp;gm</div>
             </div>
             <div class="item-meta">Nellikai oorugai</div>
+            <div class="qty-row">
+              <span class="qty-label">Qty (packs):</span>
+              <input class="qty-input" type="number" min="0" value="0" />
+            </div>
           </div>
 
-          <div class="item-card">
+          <div class="item-card" data-name="Mango Pickle" data-price="70" data-unit="100 gm">
             <div class="item-top-row">
               <div class="item-name">Mango Pickle</div>
               <div class="item-price">₹ 70 / 100&nbsp;gm</div>
             </div>
             <div class="item-meta">Maavadu style raw mango pickle</div>
+            <div class="qty-row">
+              <span class="qty-label">Qty (packs):</span>
+              <input class="qty-input" type="number" min="0" value="0" />
+            </div>
           </div>
         </div>
       </section>
@@ -458,53 +609,60 @@
         </div>
 
         <div class="items-grid">
-          <div class="item-card">
+          <div class="item-card" data-name="Thattai" data-price="150" data-unit="250 gm">
             <div class="item-top-row">
               <div class="item-name">Thattai</div>
               <div class="item-price">₹ 150 / 250&nbsp;gm</div>
             </div>
             <div class="item-meta">Crispy rice crackers</div>
+            <div class="qty-row">
+              <span class="qty-label">Qty (packs):</span>
+              <input class="qty-input" type="number" min="0" value="0" />
+            </div>
           </div>
 
-          <div class="item-card">
+          <div class="item-card" data-name="Mixture" data-price="140" data-unit="250 gm">
             <div class="item-top-row">
               <div class="item-name">Mixture</div>
               <div class="item-price">₹ 140 / 250&nbsp;gm</div>
             </div>
             <div class="item-meta">South Indian mixture</div>
+            <div class="qty-row">
+              <span class="qty-label">Qty (packs):</span>
+              <input class="qty-input" type="number" min="0" value="0" />
+            </div>
           </div>
 
-          <div class="item-card">
+          <div class="item-card" data-name="Ribbon Pakoda" data-price="130" data-unit="250 gm">
             <div class="item-top-row">
               <div class="item-name">Ribbon Pakoda</div>
               <div class="item-price">₹ 130 / 250&nbsp;gm</div>
             </div>
             <div class="item-meta">Traditional ribbon murukku</div>
+            <div class="qty-row">
+              <span class="qty-label">Qty (packs):</span>
+              <input class="qty-input" type="number" min="0" value="0" />
+            </div>
           </div>
 
-          <div class="item-card">
+          <div class="item-card" data-name="Ragi Ribbon Pakoda" data-price="150" data-unit="250 gm">
             <div class="item-top-row">
               <div class="item-name">Ragi Ribbon Pakoda</div>
               <div class="item-price">₹ 150 / 250&nbsp;gm</div>
             </div>
             <div class="item-meta">Millet-based healthy snack</div>
+            <div class="qty-row">
+              <span class="qty-label">Qty (packs):</span>
+              <input class="qty-input" type="number" min="0" value="0" />
+            </div>
           </div>
 
-          <div class="item-card">
+          <div class="item-card" data-name="Kara Boondhi" data-price="140" data-unit="250 gm">
             <div class="item-top-row">
               <div class="item-name">Kara Boondhi</div>
               <div class="item-price">₹ 140 / 250&nbsp;gm</div>
             </div>
             <div class="item-meta">Spicy boondhi mix</div>
-          </div>
-        </div>
-      </section>
-
-      <p class="note">
-        Prices are indicative and may change. Please confirm current price and
-        minimum order quantity while placing your order.
-      </p>
-    </main>
-  </div>
-</body>
-</html>
+            <div class="qty-row">
+              <span class="qty-label">Qty (packs):</span>
+    
