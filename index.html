@@ -7,8 +7,13 @@
 
   <style>
     :root {
-      --accent: #b8860b;
-      --border: #e0e0e0;
+      --bg: #faf5f0;
+      --card: #ffffff;
+      --accent: #c27b18;
+      --accent-soft: #fff3d9;
+      --text-main: #2b2b2b;
+      --text-muted: #777;
+      --border: #eadfd3;
     }
 
     * {
@@ -17,61 +22,157 @@
 
     body {
       margin: 0;
-      padding: 16px;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #ffffff; /* WHITE */
-      color: #222;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #fff7ea 0, #faf5f0 45%, #f6efe6 100%);
+      color: var(--text-main);
       display: flex;
       justify-content: center;
+      padding: 16px;
     }
 
     .page {
       width: 100%;
-      max-width: 900px;
+      max-width: 960px;
     }
+
+    /* HEADER / HERO */
 
     header {
       text-align: center;
-      margin-bottom: 16px;
+      padding: 18px 16px 10px;
+    }
+
+    .brand-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .brand-pill span {
+      font-size: 0.9rem;
     }
 
     header h1 {
       margin: 0;
       font-size: 2.2rem;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-    }
-
-    header p {
-      margin: 4px 0;
-      font-size: 1rem;
     }
 
     .tagline {
-      font-weight: 600;
-      margin-top: 8px;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      font-size: 0.9rem;
+      margin: 8px 0 4px;
+      font-size: 0.98rem;
+      color: var(--text-muted);
     }
 
-    .contact {
-      margin-top: 6px;
+    .contact-line {
+      margin: 2px 0 10px;
       font-size: 0.95rem;
     }
 
-    .menu-card {
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 16px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    .cta-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
     }
 
+    .btn-primary,
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 8px 18px;
+      font-size: 0.9rem;
+      text-decoration: none;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.08s ease-out, box-shadow 0.08s ease-out,
+        background 0.08s ease-out, border-color 0.08s ease-out;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.16);
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.8);
+      color: var(--accent);
+      border-color: var(--border);
+    }
+
+    .btn-primary:hover,
+    .btn-ghost:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+    }
+
+    .btn-primary:active,
+    .btn-ghost:active {
+      transform: translateY(0);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    /* MENU LAYOUT */
+
+    .menu-shell {
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
+      border: 1px solid #f1e4d5;
+    }
+
+    .menu-header-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed var(--border);
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .menu-header-strip h2 {
+      margin: 0;
+      font-size: 1.05rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+    }
+
+    .badge-open {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #e5f7e9;
+      color: #1f7a32;
+    }
+
+    /* SECTIONS */
+
     .menu-section {
-      margin-top: 12px;
+      margin-top: 10px;
       padding-top: 8px;
-      border-top: 1px dashed var(--border);
+      border-top: 1px solid #f3ebe1;
     }
 
     .menu-section:first-of-type {
@@ -79,50 +180,94 @@
       padding-top: 0;
     }
 
-    .menu-section h2 {
-      margin: 4px 0 8px;
-      font-size: 1.3rem;
+    .menu-section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .menu-section-title {
+      font-size: 1.25rem;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      color: #333;
+      color: var(--accent);
     }
 
-    .menu-section h3 {
-      margin: 8px 0;
-      font-size: 1.05rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #444;
+    .menu-section-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: right;
+      flex-shrink: 0;
     }
 
-    .item-row {
+    /* ITEMS GRID */
+
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px 14px;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 10px;
+      }
+
+      header h1 {
+        font-size: 1.8rem;
+      }
+
+      .menu-shell {
+        padding: 12px;
+      }
+
+      .items-grid {
+        grid-template-columns: minmax(0, 1fr); /* Single column on mobile */
+      }
+    }
+
+    .item-card {
+      background: var(--card);
+      border-radius: 12px;
+      border: 1px solid #f1e6d8;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      box-shadow: 0 3px 7px rgba(0, 0, 0, 0.03);
+    }
+
+    .item-top-row {
       display: flex;
       justify-content: space-between;
       gap: 8px;
-      padding: 4px 0;
-      font-size: 0.97rem;
-      border-bottom: 1px dotted #f0f0f0;
-    }
-
-    .item-row:last-child {
-      border-bottom: none;
+      align-items: baseline;
     }
 
     .item-name {
-      flex: 1;
-    }
-
-    .item-price {
-      white-space: nowrap;
-      text-align: right;
+      font-size: 0.96rem;
       font-weight: 500;
     }
 
+    .item-price {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: #1f3f2a;
+      white-space: nowrap;
+    }
+
+    .item-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
     .note {
-      margin-top: 10px;
-      font-size: 0.8rem;
+      margin-top: 12px;
+      font-size: 0.78rem;
       text-align: center;
-      color: #777;
+      color: var(--text-muted);
     }
   </style>
 </head>
@@ -130,112 +275,234 @@
 <body>
   <div class="page">
     <header>
+      <div class="brand-pill">
+        <span>Fresh&nbsp;&bull;&nbsp;Homemade</span>
+      </div>
       <h1>Mother Snacks</h1>
-      <p class="tagline">Sweets &amp; Savouries</p>
-      <p class="contact">Contact / WhatsApp: <strong>+91&nbsp;97864&nbsp;47416</strong></p>
+      <p class="tagline">Traditional Sweets &amp; Savouries made at home</p>
+      <p class="contact-line">
+        Call / WhatsApp:
+        <strong>+91&nbsp;97864&nbsp;47416</strong>
+      </p>
+
+      <div class="cta-row">
+        <a
+          class="btn-primary"
+          href="https://wa.me/919786447416"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          📲 Order on WhatsApp
+        </a>
+        <button
+          class="btn-ghost"
+          type="button"
+          onclick="window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });"
+        >
+          📃 View full menu
+        </button>
+      </div>
     </header>
 
-    <main class="menu-card">
-      <!-- Sweets -->
-      <section class="menu-section">
-        <h2>Sweets</h2>
+    <main class="menu-shell">
+      <div class="menu-header-strip">
+        <h2>Menu &amp; Price List</h2>
+        <span class="badge-open">Pre-order only</span>
+      </div>
 
-        <div class="item-row">
-          <div class="item-name">Ghee Mysore Pak</div>
-          <div class="item-price">₹ 200.00 / 250 gm</div>
+      <!-- Sweets -->
+      <section class="menu-section" id="sweets">
+        <div class="menu-section-header">
+          <div class="menu-section-title">Sweets</div>
+          <div class="menu-section-note">Perfect for functions &amp; gifting</div>
         </div>
-        <div class="item-row">
-          <div class="item-name">Laddu</div>
-          <div class="item-price">₹ 150.00 / 250 gm</div>
-        </div>
-        <div class="item-row">
-          <div class="item-name">Maa Laddu</div>
-          <div class="item-price">₹ 150.00 / 250 gm</div>
-        </div>
-        <div class="item-row">
-          <div class="item-name">Sweet Somas</div>
-          <div class="item-price">₹ 75.00 / 5 Pieces</div>
-        </div>
-        <div class="item-row">
-          <div class="item-name">Adhirasam</div>
-          <div class="item-price">₹ 150.00 / 250 gm</div>
-        </div>
-        <div class="item-row">
-          <div class="item-name">Boli</div>
-          <div class="item-price">₹ 25.00 / Piece</div>
-        </div>
-        <div class="item-row">
-          <div class="item-name">Vanilla Burfi</div>
-          <div class="item-price">₹ 185.00 / 250 gm</div>
-        </div>
-        <div class="item-row">
-          <div class="item-name">Peanut Burfi</div>
-          <div class="item-price">₹ 95.00 / 200 gm</div>
-        </div>
-        <div class="item-row">
-          <div class="item-name">Sesame Burfi</div>
-          <div class="item-price">₹ 65.00 / 100 gm</div>
+
+        <div class="items-grid">
+          <div class="item-card">
+            <div class="item-top-row">
+              <div class="item-name">Ghee Mysore Pak</div>
+              <div class="item-price">₹ 200 / 250&nbsp;gm</div>
+            </div>
+            <div class="item-meta">Rich, soft, ghee-based sweet</div>
+          </div>
+
+          <div class="item-card">
+            <div class="item-top-row">
+              <div class="item-name">Laddu</div>
+              <div class="item-price">₹ 150 / 250&nbsp;gm</div>
+            </div>
+            <div class="item-meta">Classic boondi laddu</div>
+          </div>
+
+          <div class="item-card">
+            <div class="item-top-row">
+              <div class="item-name">Maa Laddu</div>
+              <div class="item-price">₹ 150 / 250&nbsp;gm</div>
+            </div>
+            <div class="item-meta">Roasted gram flour sweet balls</div>
+          </div>
+
+          <div class="item-card">
+            <div class="item-top-row">
+              <div class="item-name">Sweet Somas</div>
+              <div class="item-price">₹ 75 / 5 pcs</div>
+            </div>
+            <div class="item-meta">Crispy outer, sweet filling</div>
+          </div>
+
+          <div class="item-card">
+            <div class="item-top-row">
+              <div class="item-name">Adhirasam</div>
+              <div class="item-price">₹ 150 / 250&nbsp;gm</div>
+            </div>
+            <div class="item-meta">Traditional jaggery-based sweet</div>
+          </div>
+
+          <div class="item-card">
+            <div class="item-top-row">
+              <div class="item-name">Boli</div>
+              <div class="item-price">₹ 25 / piece</div>
+            </div>
+            <div class="item-meta">Soft chana-dal sweet poli</div>
+          </div>
+
+          <div class="item-card">
+            <div class="item-top-row">
+              <div class="item-name">Vanilla Burfi</div>
+              <div class="item-price">₹ 185 / 250&nbsp;gm</div>
+            </div>
+            <div class="item-meta">Milk-based barfi with vanilla flavour</div>
+          </div>
+
+          <div class="item-card">
+            <div class="item-top-row">
+              <div class="item-name">Peanut Burfi</div>
+              <div class="item-price">₹ 95 / 200&nbsp;gm</div>
+            </div>
+            <div class="item-meta">Groundnut jaggery squares</div>
+          </div>
+
+          <div class="item-card">
+            <div class="item-top-row">
+              <div class="item-name">Sesame Burfi</div>
+              <div class="item-price">₹ 65 / 100&nbsp;gm</div>
+            </div>
+            <div class="item-meta">Ellu (til) sweet squares</div>
+          </div>
         </div>
       </section>
 
       <!-- Podi & Pickles -->
-      <section class="menu-section">
-        <h2>Podi Varieties &amp; Pickles</h2>
+      <section class="menu-section" id="podi">
+        <div class="menu-section-header">
+          <div class="menu-section-title">Podi &amp; Pickles</div>
+          <div class="menu-section-note">Homemade with quality ingredients</div>
+        </div>
 
-        <div class="item-row">
-          <div class="item-name">Idly Podi</div>
-          <div class="item-price">₹ 75.00 / 100 gm</div>
-        </div>
-        <div class="item-row">
-          <div class="item-name">Rasam Podi</div>
-          <div class="item-price">₹ 60.00 / 50 gm</div>
-        </div>
-        <div class="item-row">
-          <div class="item-name">Paruppu Podi</div>
-          <div class="item-price">₹ 75.00 / 100 gm</div>
-        </div>
-        <div class="item-row">
-          <div class="item-name">Tomato Thokku</div>
-          <div class="item-price">₹ 75.00 / 100 gm</div>
-        </div>
-        <div class="item-row">
-          <div class="item-name">Amla Pickle</div>
-          <div class="item-price">₹ 70.00 / 100 gm</div>
-        </div>
-        <div class="item-row">
-          <div class="item-name">Mango Pickle</div>
-          <div class="item-price">₹ 70.00 / 100 gm</div>
+        <div class="items-grid">
+          <div class="item-card">
+            <div class="item-top-row">
+              <div class="item-name">Idly Podi</div>
+              <div class="item-price">₹ 75 / 100&nbsp;gm</div>
+            </div>
+            <div class="item-meta">Gun-powder for idly &amp; dosa</div>
+          </div>
+
+          <div class="item-card">
+            <div class="item-top-row">
+              <div class="item-name">Rasam Podi</div>
+              <div class="item-price">₹ 60 / 50&nbsp;gm</div>
+            </div>
+            <div class="item-meta">Fragrant spice mix for rasam</div>
+          </div>
+
+          <div class="item-card">
+            <div class="item-top-row">
+              <div class="item-name">Paruppu Podi</div>
+              <div class="item-price">₹ 75 / 100&nbsp;gm</div>
+            </div>
+            <div class="item-meta">Dal powder for rice &amp; ghee</div>
+          </div>
+
+          <div class="item-card">
+            <div class="item-top-row">
+              <div class="item-name">Tomato Thokku</div>
+              <div class="item-price">₹ 75 / 100&nbsp;gm</div>
+            </div>
+            <div class="item-meta">Tangy tomato pickle</div>
+          </div>
+
+          <div class="item-card">
+            <div class="item-top-row">
+              <div class="item-name">Amla Pickle</div>
+              <div class="item-price">₹ 70 / 100&nbsp;gm</div>
+            </div>
+            <div class="item-meta">Nellikai oorugai</div>
+          </div>
+
+          <div class="item-card">
+            <div class="item-top-row">
+              <div class="item-name">Mango Pickle</div>
+              <div class="item-price">₹ 70 / 100&nbsp;gm</div>
+            </div>
+            <div class="item-meta">Maavadu style raw mango pickle</div>
+          </div>
         </div>
       </section>
 
       <!-- Savouries -->
-      <section class="menu-section">
-        <h2>Savouries</h2>
+      <section class="menu-section" id="savouries">
+        <div class="menu-section-header">
+          <div class="menu-section-title">Savouries</div>
+          <div class="menu-section-note">Crunchy evening snacks</div>
+        </div>
 
-        <div class="item-row">
-          <div class="item-name">Thattai</div>
-          <div class="item-price">₹ 150.00 / 250 gm</div>
-        </div>
-        <div class="item-row">
-          <div class="item-name">Mixture</div>
-          <div class="item-price">₹ 140.00 / 250 gm</div>
-        </div>
-        <div class="item-row">
-          <div class="item-name">Ribbon Pakoda</div>
-          <div class="item-price">₹ 130.00 / 250 gm</div>
-        </div>
-        <div class="item-row">
-          <div class="item-name">Ragi Ribbon Pakoda</div>
-          <div class="item-price">₹ 150.00 / 250 gm</div>
-        </div>
-        <div class="item-row">
-          <div class="item-name">Kara Boondhi</div>
-          <div class="item-price">₹ 140.00 / 250 gm</div>
+        <div class="items-grid">
+          <div class="item-card">
+            <div class="item-top-row">
+              <div class="item-name">Thattai</div>
+              <div class="item-price">₹ 150 / 250&nbsp;gm</div>
+            </div>
+            <div class="item-meta">Crispy rice crackers</div>
+          </div>
+
+          <div class="item-card">
+            <div class="item-top-row">
+              <div class="item-name">Mixture</div>
+              <div class="item-price">₹ 140 / 250&nbsp;gm</div>
+            </div>
+            <div class="item-meta">South Indian mixture</div>
+          </div>
+
+          <div class="item-card">
+            <div class="item-top-row">
+              <div class="item-name">Ribbon Pakoda</div>
+              <div class="item-price">₹ 130 / 250&nbsp;gm</div>
+            </div>
+            <div class="item-meta">Traditional ribbon murukku</div>
+          </div>
+
+          <div class="item-card">
+            <div class="item-top-row">
+              <div class="item-name">Ragi Ribbon Pakoda</div>
+              <div class="item-price">₹ 150 / 250&nbsp;gm</div>
+            </div>
+            <div class="item-meta">Millet-based healthy snack</div>
+          </div>
+
+          <div class="item-card">
+            <div class="item-top-row">
+              <div class="item-name">Kara Boondhi</div>
+              <div class="item-price">₹ 140 / 250&nbsp;gm</div>
+            </div>
+            <div class="item-meta">Spicy boondhi mix</div>
+          </div>
         </div>
       </section>
 
       <p class="note">
-        Prices and availability may change. Please confirm while ordering.
+        Prices are indicative and may change. Please confirm current price and
+        minimum order quantity while placing your order.
       </p>
     </main>
   </div>
