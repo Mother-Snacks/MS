@@ -289,19 +289,39 @@
       color: var(--text-muted);
     }
 
-    .qty-input {
-      width: 72px;
-      padding: 4px 6px;
+    .qty-controls {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #f8f1e7;
       border-radius: 999px;
-      border: 1px solid #e0d4c5;
-      font-size: 0.85rem;
-      text-align: center;
-      outline: none;
+      padding: 2px 4px;
     }
 
-    .qty-input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(194, 123, 24, 0.2);
+    .qty-btn {
+      border: none;
+      background: transparent;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      cursor: pointer;
+      color: #5a4522;
+    }
+
+    .qty-btn:hover {
+      background: #ecd9c1;
+    }
+
+    .qty-display {
+      min-width: 24px;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #3b2b15;
     }
 
     /* CART SUMMARY */
@@ -417,7 +437,11 @@
             <div class="item-meta">Rich, soft, ghee-based sweet</div>
             <div class="qty-row">
               <span class="qty-label">Qty (packs):</span>
-              <input class="qty-input" type="number" min="0" value="0" />
+              <div class="qty-controls">
+                <button class="qty-btn" type="button" data-change="-1">−</button>
+                <span class="qty-display">0</span>
+                <button class="qty-btn" type="button" data-change="1">+</button>
+              </div>
             </div>
           </div>
 
@@ -429,7 +453,11 @@
             <div class="item-meta">Classic boondi laddu</div>
             <div class="qty-row">
               <span class="qty-label">Qty (packs):</span>
-              <input class="qty-input" type="number" min="0" value="0" />
+              <div class="qty-controls">
+                <button class="qty-btn" type="button" data-change="-1">−</button>
+                <span class="qty-display">0</span>
+                <button class="qty-btn" type="button" data-change="1">+</button>
+              </div>
             </div>
           </div>
 
@@ -441,7 +469,11 @@
             <div class="item-meta">Roasted gram flour sweet balls</div>
             <div class="qty-row">
               <span class="qty-label">Qty (packs):</span>
-              <input class="qty-input" type="number" min="0" value="0" />
+              <div class="qty-controls">
+                <button class="qty-btn" type="button" data-change="-1">−</button>
+                <span class="qty-display">0</span>
+                <button class="qty-btn" type="button" data-change="1">+</button>
+              </div>
             </div>
           </div>
 
@@ -453,7 +485,11 @@
             <div class="item-meta">Crispy outer, sweet filling</div>
             <div class="qty-row">
               <span class="qty-label">Qty (sets of 5):</span>
-              <input class="qty-input" type="number" min="0" value="0" />
+              <div class="qty-controls">
+                <button class="qty-btn" type="button" data-change="-1">−</button>
+                <span class="qty-display">0</span>
+                <button class="qty-btn" type="button" data-change="1">+</button>
+              </div>
             </div>
           </div>
 
@@ -465,7 +501,11 @@
             <div class="item-meta">Traditional jaggery-based sweet</div>
             <div class="qty-row">
               <span class="qty-label">Qty (packs):</span>
-              <input class="qty-input" type="number" min="0" value="0" />
+              <div class="qty-controls">
+                <button class="qty-btn" type="button" data-change="-1">−</button>
+                <span class="qty-display">0</span>
+                <button class="qty-btn" type="button" data-change="1">+</button>
+              </div>
             </div>
           </div>
 
@@ -477,7 +517,11 @@
             <div class="item-meta">Soft chana-dal sweet poli</div>
             <div class="qty-row">
               <span class="qty-label">Qty (pieces):</span>
-              <input class="qty-input" type="number" min="0" value="0" />
+              <div class="qty-controls">
+                <button class="qty-btn" type="button" data-change="-1">−</button>
+                <span class="qty-display">0</span>
+                <button class="qty-btn" type="button" data-change="1">+</button>
+              </div>
             </div>
           </div>
 
@@ -489,7 +533,11 @@
             <div class="item-meta">Milk-based barfi with vanilla flavour</div>
             <div class="qty-row">
               <span class="qty-label">Qty (packs):</span>
-              <input class="qty-input" type="number" min="0" value="0" />
+              <div class="qty-controls">
+                <button class="qty-btn" type="button" data-change="-1">−</button>
+                <span class="qty-display">0</span>
+                <button class="qty-btn" type="button" data-change="1">+</button>
+              </div>
             </div>
           </div>
 
@@ -501,7 +549,11 @@
             <div class="item-meta">Groundnut jaggery squares</div>
             <div class="qty-row">
               <span class="qty-label">Qty (packs):</span>
-              <input class="qty-input" type="number" min="0" value="0" />
+              <div class="qty-controls">
+                <button class="qty-btn" type="button" data-change="-1">−</button>
+                <span class="qty-display">0</span>
+                <button class="qty-btn" type="button" data-change="1">+</button>
+              </div>
             </div>
           </div>
 
@@ -513,7 +565,11 @@
             <div class="item-meta">Ellu (til) sweet squares</div>
             <div class="qty-row">
               <span class="qty-label">Qty (packs):</span>
-              <input class="qty-input" type="number" min="0" value="0" />
+              <div class="qty-controls">
+                <button class="qty-btn" type="button" data-change="-1">−</button>
+                <span class="qty-display">0</span>
+                <button class="qty-btn" type="button" data-change="1">+</button>
+              </div>
             </div>
           </div>
         </div>
@@ -535,7 +591,11 @@
             <div class="item-meta">Gun-powder for idly &amp; dosa</div>
             <div class="qty-row">
               <span class="qty-label">Qty (packs):</span>
-              <input class="qty-input" type="number" min="0" value="0" />
+              <div class="qty-controls">
+                <button class="qty-btn" type="button" data-change="-1">−</button>
+                <span class="qty-display">0</span>
+                <button class="qty-btn" type="button" data-change="1">+</button>
+              </div>
             </div>
           </div>
 
@@ -547,7 +607,11 @@
             <div class="item-meta">Fragrant spice mix for rasam</div>
             <div class="qty-row">
               <span class="qty-label">Qty (packs):</span>
-              <input class="qty-input" type="number" min="0" value="0" />
+              <div class="qty-controls">
+                <button class="qty-btn" type="button" data-change="-1">−</button>
+                <span class="qty-display">0</span>
+                <button class="qty-btn" type="button" data-change="1">+</button>
+              </div>
             </div>
           </div>
 
@@ -559,7 +623,11 @@
             <div class="item-meta">Dal powder for rice &amp; ghee</div>
             <div class="qty-row">
               <span class="qty-label">Qty (packs):</span>
-              <input class="qty-input" type="number" min="0" value="0" />
+              <div class="qty-controls">
+                <button class="qty-btn" type="button" data-change="-1">−</button>
+                <span class="qty-display">0</span>
+                <button class="qty-btn" type="button" data-change="1">+</button>
+              </div>
             </div>
           </div>
 
@@ -571,7 +639,11 @@
             <div class="item-meta">Tangy tomato pickle</div>
             <div class="qty-row">
               <span class="qty-label">Qty (packs):</span>
-              <input class="qty-input" type="number" min="0" value="0" />
+              <div class="qty-controls">
+                <button class="qty-btn" type="button" data-change="-1">−</button>
+                <span class="qty-display">0</span>
+                <button class="qty-btn" type="button" data-change="1">+</button>
+              </div>
             </div>
           </div>
 
@@ -583,7 +655,11 @@
             <div class="item-meta">Nellikai oorugai</div>
             <div class="qty-row">
               <span class="qty-label">Qty (packs):</span>
-              <input class="qty-input" type="number" min="0" value="0" />
+              <div class="qty-controls">
+                <button class="qty-btn" type="button" data-change="-1">−</button>
+                <span class="qty-display">0</span>
+                <button class="qty-btn" type="button" data-change="1">+</button>
+              </div>
             </div>
           </div>
 
@@ -592,77 +668,4 @@
               <div class="item-name">Mango Pickle</div>
               <div class="item-price">₹ 70 / 100&nbsp;gm</div>
             </div>
-            <div class="item-meta">Maavadu style raw mango pickle</div>
-            <div class="qty-row">
-              <span class="qty-label">Qty (packs):</span>
-              <input class="qty-input" type="number" min="0" value="0" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Savouries -->
-      <section class="menu-section" id="savouries">
-        <div class="menu-section-header">
-          <div class="menu-section-title">Savouries</div>
-          <div class="menu-section-note">Crunchy evening snacks</div>
-        </div>
-
-        <div class="items-grid">
-          <div class="item-card" data-name="Thattai" data-price="150" data-unit="250 gm">
-            <div class="item-top-row">
-              <div class="item-name">Thattai</div>
-              <div class="item-price">₹ 150 / 250&nbsp;gm</div>
-            </div>
-            <div class="item-meta">Crispy rice crackers</div>
-            <div class="qty-row">
-              <span class="qty-label">Qty (packs):</span>
-              <input class="qty-input" type="number" min="0" value="0" />
-            </div>
-          </div>
-
-          <div class="item-card" data-name="Mixture" data-price="140" data-unit="250 gm">
-            <div class="item-top-row">
-              <div class="item-name">Mixture</div>
-              <div class="item-price">₹ 140 / 250&nbsp;gm</div>
-            </div>
-            <div class="item-meta">South Indian mixture</div>
-            <div class="qty-row">
-              <span class="qty-label">Qty (packs):</span>
-              <input class="qty-input" type="number" min="0" value="0" />
-            </div>
-          </div>
-
-          <div class="item-card" data-name="Ribbon Pakoda" data-price="130" data-unit="250 gm">
-            <div class="item-top-row">
-              <div class="item-name">Ribbon Pakoda</div>
-              <div class="item-price">₹ 130 / 250&nbsp;gm</div>
-            </div>
-            <div class="item-meta">Traditional ribbon murukku</div>
-            <div class="qty-row">
-              <span class="qty-label">Qty (packs):</span>
-              <input class="qty-input" type="number" min="0" value="0" />
-            </div>
-          </div>
-
-          <div class="item-card" data-name="Ragi Ribbon Pakoda" data-price="150" data-unit="250 gm">
-            <div class="item-top-row">
-              <div class="item-name">Ragi Ribbon Pakoda</div>
-              <div class="item-price">₹ 150 / 250&nbsp;gm</div>
-            </div>
-            <div class="item-meta">Millet-based healthy snack</div>
-            <div class="qty-row">
-              <span class="qty-label">Qty (packs):</span>
-              <input class="qty-input" type="number" min="0" value="0" />
-            </div>
-          </div>
-
-          <div class="item-card" data-name="Kara Boondhi" data-price="140" data-unit="250 gm">
-            <div class="item-top-row">
-              <div class="item-name">Kara Boondhi</div>
-              <div class="item-price">₹ 140 / 250&nbsp;gm</div>
-            </div>
-            <div class="item-meta">Spicy boondhi mix</div>
-            <div class="qty-row">
-              <span class="qty-label">Qty (packs):</span>
-    
+            <div 
