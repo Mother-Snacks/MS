@@ -1,64 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Mother Snacks – Menu</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
+      background: white;
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #ffffff; /* White background */
-      color: #000000;
       padding: 20px;
+      font-family: Arial, sans-serif;
+      color: #000;
     }
-
     .container {
       max-width: 900px;
       margin: auto;
     }
-
     header {
       text-align: center;
-      margin-bottom: 20px;
     }
-
     header h1 {
       margin: 0;
       font-size: 2rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
     }
-
-    header p {
-      margin: 5px 0;
-      font-size: 1.1rem;
-    }
-
-    .whatsapp-btn {
-      display: inline-block;
-      padding: 8px 16px;
-      margin-top: 8px;
-      border-radius: 25px;
-      border: 2px solid #25d366;
-      color: #25d366;
-      text-decoration: none;
-      font-size: 1rem;
-    }
-
-    .pdf-container {
+    .pdf-box {
       margin-top: 20px;
       border: 1px solid #ccc;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .note {
-      margin-top: 10px;
-      text-align: center;
-      font-size: 0.9rem;
-      color: #555;
+      height: 1100px;
     }
   </style>
 </head>
@@ -66,29 +34,18 @@
 <body>
   <div class="container">
     <header>
-      <h1>Mother Snacks</h1>
-      <p>Sweets & Savouries</p>
-
-      <a
-        class="whatsapp-btn"
-        href="https://wa.me/919786447416"
-        target="_blank"
-      >
-        Order on WhatsApp: +91 97864 47416
-      </a>
+      <h1>Mother Snacks – Menu</h1>
     </header>
 
-    <!-- PDF Display Section -->
-    <div class="pdf-container">
+    <!-- Embedded PDF -->
+    <div class="pdf-box">
       <embed 
-        src="Mother Snacks Menu - 03-11-25.pdf"
         type="application/pdf"
         width="100%"
-        height="1100px"
+        height="100%"
+        src="data:application/pdf;base64,JVBERi0xLjcNCiW1tbW1DQoxIDAgb2JqDQo8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFI+Pg0KZW5kb2JqDQoyIDAgb2JqDQo8PC9UeXBlL1BhZ2VzL0tpZHNbMyAwIFJdL0NvdW50IDE+Pg0KZW5kb2JqDQozIDAgb2JqDQo8PC9UeXBlL1BhZ2UvUGFyZW50IDIgMCBSL01lZGlhQm94WzAgMCA2MTIgNzkyXS9Db250ZW50cyA0IDAgUj4+DQplbmRvYmoNCjQgMCBvYmoNCjw8L0xlbmd0aCA1NTQ+Pg0Kc3RyZWFtDQp4nG2TTW+bMBjHv0o8QAEyyOt9A9XS6..."
       />
     </div>
-
-    <p class="note">Scroll to view the full menu. Works on mobile & desktop.</p>
   </div>
 </body>
 </html>
