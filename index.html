@@ -668,4 +668,234 @@
               <div class="item-name">Mango Pickle</div>
               <div class="item-price">₹ 70 / 100&nbsp;gm</div>
             </div>
-            <div 
+              <div class="item-meta">Maavadu style raw mango pickle</div>
+            <div class="qty-row">
+              <span class="qty-label">Qty (packs):</span>
+              <div class="qty-controls">
+                <button class="qty-btn" type="button" data-change="-1">−</button>
+                <span class="qty-display">0</span>
+                <button class="qty-btn" type="button" data-change="1">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Savouries -->
+      <section class="menu-section" id="savouries">
+        <div class="menu-section-header">
+          <div class="menu-section-title">Savouries</div>
+          <div class="menu-section-note">Crunchy evening snacks</div>
+        </div>
+
+        <div class="items-grid">
+          <div class="item-card" data-name="Thattai" data-price="150" data-unit="250 gm">
+            <div class="item-top-row">
+              <div class="item-name">Thattai</div>
+              <div class="item-price">₹ 150 / 250&nbsp;gm</div>
+            </div>
+            <div class="item-meta">Crispy rice crackers</div>
+            <div class="qty-row">
+              <span class="qty-label">Qty (packs):</span>
+              <div class="qty-controls">
+                <button class="qty-btn" type="button" data-change="-1">−</button>
+                <span class="qty-display">0</span>
+                <button class="qty-btn" type="button" data-change="1">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="item-card" data-name="Mixture" data-price="140" data-unit="250 gm">
+            <div class="item-top-row">
+              <div class="item-name">Mixture</div>
+              <div class="item-price">₹ 140 / 250&nbsp;gm</div>
+            </div>
+            <div class="item-meta">South Indian mixture</div>
+            <div class="qty-row">
+              <span class="qty-label">Qty (packs):</span>
+              <div class="qty-controls">
+                <button class="qty-btn" type="button" data-change="-1">−</button>
+                <span class="qty-display">0</span>
+                <button class="qty-btn" type="button" data-change="1">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="item-card" data-name="Ribbon Pakoda" data-price="130" data-unit="250 gm">
+            <div class="item-top-row">
+              <div class="item-name">Ribbon Pakoda</div>
+              <div class="item-price">₹ 130 / 250&nbsp;gm</div>
+            </div>
+            <div class="item-meta">Traditional ribbon murukku</div>
+            <div class="qty-row">
+              <span class="qty-label">Qty (packs):</span>
+              <div class="qty-controls">
+                <button class="qty-btn" type="button" data-change="-1">−</button>
+                <span class="qty-display">0</span>
+                <button class="qty-btn" type="button" data-change="1">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="item-card" data-name="Ragi Ribbon Pakoda" data-price="150" data-unit="250 gm">
+            <div class="item-top-row">
+              <div class="item-name">Ragi Ribbon Pakoda</div>
+              <div class="item-price">₹ 150 / 250&nbsp;gm</div>
+            </div>
+            <div class="item-meta">Millet-based healthy snack</div>
+            <div class="qty-row">
+              <span class="qty-label">Qty (packs):</span>
+              <div class="qty-controls">
+                <button class="qty-btn" type="button" data-change="-1">−</button>
+                <span class="qty-display">0</span>
+                <button class="qty-btn" type="button" data-change="1">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="item-card" data-name="Kara Boondhi" data-price="140" data-unit="250 gm">
+            <div class="item-top-row">
+              <div class="item-name">Kara Boondhi</div>
+              <div class="item-price">₹ 140 / 250&nbsp;gm</div>
+            </div>
+            <div class="item-meta">Spicy boondhi mix</div>
+            <div class="qty-row">
+              <span class="qty-label">Qty (packs):</span>
+              <div class="qty-controls">
+                <button class="qty-btn" type="button" data-change="-1">−</button>
+                <span class="qty-display">0</span>
+                <button class="qty-btn" type="button" data-change="1">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CART SUMMARY -->
+      <section class="cart-summary">
+        <div class="cart-row">
+          <div class="total-label">Total amount (approx.)</div>
+          <div id="cartTotal" class="total-amount">₹ 0.00</div>
+        </div>
+
+        <textarea id="orderDetails" readonly>No items selected.</textarea>
+
+        <div class="cart-actions">
+          <button id="checkoutGpay" class="btn-secondary" type="button" disabled>
+            💳 Pay with UPI / GPay
+          </button>
+          <button id="sendWhatsapp" class="btn-primary" type="button" disabled>
+            📩 Send order on WhatsApp
+          </button>
+        </div>
+      </section>
+
+      <p class="note">
+        Prices are indicative and may change. Please confirm current price and
+        minimum order quantity while placing your order.
+      </p>
+    </main>
+  </div>
+
+  <script>
+    // Your UPI & WhatsApp details
+    const UPI_ID = "radhika21.p@okicici";
+    const MERCHANT_NAME = "Mother Snacks";
+    const WHATSAPP_NUMBER = "919786447416"; // with country code, no +
+
+    const totalEl = document.getElementById("cartTotal");
+    const orderDetailsEl = document.getElementById("orderDetails");
+    const checkoutBtn = document.getElementById("checkoutGpay");
+    const whatsappBtn = document.getElementById("sendWhatsapp");
+
+    function recalcCart() {
+      const cards = document.querySelectorAll(".item-card");
+      let total = 0;
+      const lines = [];
+
+      cards.forEach((card) => {
+        const price = parseFloat(card.dataset.price || "0");
+        const name = card.dataset.name || "";
+        const unit = card.dataset.unit || "";
+        const qtyDisplay = card.querySelector(".qty-display");
+        const qty = parseInt(qtyDisplay.textContent || "0", 10);
+
+        if (qty > 0 && price > 0) {
+          const itemTotal = price * qty;
+          total += itemTotal;
+          lines.push(
+            `${name} x ${qty} (${unit}) = ₹ ${itemTotal.toFixed(2)}`
+          );
+        }
+      });
+
+      totalEl.textContent = "₹ " + total.toFixed(2);
+
+      if (lines.length === 0) {
+        orderDetailsEl.value = "No items selected.";
+        checkoutBtn.disabled = true;
+        whatsappBtn.disabled = true;
+      } else {
+        orderDetailsEl.value =
+          "Mother Snacks – Order\n\n" +
+          lines.join("\n") +
+          "\n\nTotal: ₹ " +
+          total.toFixed(2) +
+          "\n\n(Prices subject to confirmation)";
+        checkoutBtn.disabled = false;
+        whatsappBtn.disabled = false;
+      }
+
+      checkoutBtn.dataset.amount = total.toFixed(2);
+    }
+
+    // plus / minus buttons
+    document.querySelectorAll(".qty-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const change = parseInt(btn.dataset.change || "0", 10);
+        const card = btn.closest(".item-card");
+        const display = card.querySelector(".qty-display");
+        let current = parseInt(display.textContent || "0", 10);
+        if (isNaN(current)) current = 0;
+        current += change;
+        if (current < 0) current = 0;
+        if (current > 99) current = 99;
+        display.textContent = String(current);
+        recalcCart();
+      });
+    });
+
+    // Checkout with UPI / GPay
+    checkoutBtn.addEventListener("click", () => {
+      const amount = parseFloat(checkoutBtn.dataset.amount || "0");
+      if (!amount || amount <= 0) return;
+
+      const upiUrl =
+        "upi://pay?" +
+        "pa=" + encodeURIComponent(UPI_ID) +
+        "&pn=" + encodeURIComponent(MERCHANT_NAME) +
+        "&am=" + encodeURIComponent(amount.toFixed(2)) +
+        "&cu=INR" +
+        "&tn=" + encodeURIComponent("Mother Snacks order");
+
+      window.location.href = upiUrl; // On mobile this opens UPI / GPay
+    });
+
+    // Send order on WhatsApp
+    whatsappBtn.addEventListener("click", () => {
+      const text = orderDetailsEl.value || "";
+      const url =
+        "https://wa.me/" +
+        WHATSAPP_NUMBER +
+        "?text=" +
+        encodeURIComponent(text);
+      window.open(url, "_blank");
+    });
+
+    // initialise once
+    recalcCart();
+  </script>
+</body>
+</html>
+
+
