@@ -7,13 +7,15 @@
 
   <style>
     :root {
-      --bg: #faf5f0;
+      --bg: #fff7ec;
+      --bg-secondary: #ffe9cf;
       --card: #ffffff;
-      --accent: #c27b18;
-      --accent-soft: #fff3d9;
-      --text-main: #2b2b2b;
-      --text-muted: #777;
-      --border: #eadfd3;
+      --accent: #d27b1f;
+      --accent-soft: #fff1dd;
+      --accent-dark: #804414;
+      --text-main: #2b241d;
+      --text-muted: #8a7b6b;
+      --border: #f0ddc8;
     }
 
     * {
@@ -25,8 +27,11 @@
       min-height: 100vh;
       font-family: system-ui, -apple-system, BlinkMacSystemFont,
         "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #fff7ea 0, #faf5f0 45%, #f6efe6 100%);
       color: var(--text-main);
+      background:
+        radial-gradient(circle at top left, #fff3dd 0, transparent 55%),
+        radial-gradient(circle at top right, #ffe1c5 0, transparent 55%),
+        linear-gradient(to bottom, var(--bg) 0, #fffaf4 55%, #fef1de 100%);
       display: flex;
       justify-content: center;
       padding: 16px;
@@ -37,120 +42,113 @@
       max-width: 960px;
     }
 
-    /* HEADER / HERO */
+    /* STICKY HEADER WITH SHRINK ANIMATION */
 
-    header {
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
       text-align: center;
-      padding: 18px 16px 10px;
+      padding: 18px 16px 14px;
+      margin-bottom: 10px;
+      background:
+        radial-gradient(circle at top, #ffe9cf 0, #ffe0c0 40%, #ffd7b3 100%);
+      border-radius: 20px;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(14px);
+      transition:
+        padding 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease,
+        border-radius 0.25s ease;
     }
 
-    .brand-pill {
+    .site-header-inner {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .badge-pill {
       display: inline-flex;
       align-items: center;
       gap: 6px;
       padding: 4px 12px;
       border-radius: 999px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-size: 0.8rem;
+      background: rgba(255, 255, 255, 0.85);
+      color: var(--accent-dark);
+      font-size: 0.78rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
-    header h1 {
+    .site-title {
       margin: 0;
-      font-size: 2.2rem;
-      letter-spacing: 0.18em;
+      font-size: 2.3rem;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
+      color: #3a2a1a;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+      transition: font-size 0.25s ease, letter-spacing 0.25s ease;
     }
 
     .tagline {
-      margin: 8px 0 4px;
+      margin: 6px 0 2px;
       font-size: 0.98rem;
       color: var(--text-muted);
+      transition: opacity 0.25s ease, max-height 0.25s ease, margin 0.25s ease;
+      max-height: 40px;
+      overflow: hidden;
     }
 
     .contact-line {
-      margin: 2px 0 10px;
-      font-size: 0.95rem;
-    }
-
-    .cta-row {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 4px;
-    }
-
-    .btn-primary,
-    .btn-ghost,
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      border-radius: 999px;
-      padding: 8px 18px;
+      margin: 0;
       font-size: 0.9rem;
-      text-decoration: none;
-      border: 1px solid transparent;
-      cursor: pointer;
-      transition: transform 0.08s ease-out, box-shadow 0.08s ease-out,
-        background 0.08s ease-out, border-color 0.08s ease-out;
-      white-space: nowrap;
+      color: #4c3a28;
+      transition: opacity 0.25s ease, max-height 0.25s ease;
+      max-height: 30px;
+      overflow: hidden;
     }
 
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.16);
+    .site-header.scrolled {
+      padding: 8px 14px;
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+      transform: translateY(-2px);
     }
 
-    .btn-secondary {
-      background: #0f9d58;
-      color: #fff;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.16);
+    .site-header.scrolled .site-title {
+      font-size: 1.4rem;
+      letter-spacing: 0.16em;
     }
 
-    .btn-ghost {
-      background: rgba(255, 255, 255, 0.8);
-      color: var(--accent);
-      border-color: var(--border);
+    .site-header.scrolled .tagline {
+      opacity: 0;
+      max-height: 0;
+      margin: 0;
     }
 
-    .btn-primary:hover,
-    .btn-ghost:hover,
-    .btn-secondary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+    .site-header.scrolled .contact-line {
+      opacity: 0.9;
+      max-height: 18px;
     }
 
-    .btn-primary:active,
-    .btn-ghost:active,
-    .btn-secondary:active {
-      transform: translateY(0);
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
-    }
-
-    .btn-primary:disabled,
-    .btn-secondary:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      box-shadow: none;
-      transform: none;
-    }
-
-    /* MENU LAYOUT */
+    /* MENU CONTAINER */
 
     .menu-shell {
-      margin-top: 16px;
+      margin-top: 8px;
       padding: 16px;
       border-radius: 20px;
-      background: rgba(255, 255, 255, 0.9);
-      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
-      border: 1px solid #f1e4d5;
+      background: linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.96),
+        rgba(255, 250, 244, 0.96)
+      );
+      box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.08),
+        0 0 0 1px rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--border);
     }
 
     .menu-header-strip {
@@ -166,31 +164,32 @@
 
     .menu-header-strip h2 {
       margin: 0;
-      font-size: 1.05rem;
+      font-size: 1rem;
       text-transform: uppercase;
       letter-spacing: 0.18em;
       color: var(--text-muted);
     }
 
-    .badge-open {
+    .badge-soft {
       font-size: 0.75rem;
       padding: 4px 10px;
       border-radius: 999px;
       background: #e5f7e9;
       color: #1f7a32;
+      border: 1px solid rgba(255, 255, 255, 0.8);
     }
 
-    /* SECTIONS */
+    /* MENU SECTIONS */
 
     .menu-section {
-      margin-top: 10px;
-      padding-top: 8px;
-      border-top: 1px solid #f3ebe1;
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid #f2e2d1;
     }
 
     .menu-section:first-of-type {
       border-top: none;
-      padding-top: 0;
+      padding-top: 2px;
     }
 
     .menu-section-header {
@@ -198,14 +197,14 @@
       align-items: baseline;
       justify-content: space-between;
       gap: 10px;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .menu-section-title {
       font-size: 1.25rem;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--accent);
+      letter-spacing: 0.14em;
+      color: var(--accent-dark);
     }
 
     .menu-section-note {
@@ -220,7 +219,7 @@
     .items-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 6px 14px;
+      gap: 8px 16px;
     }
 
     @media (max-width: 640px) {
@@ -228,31 +227,47 @@
         padding: 10px;
       }
 
-      header h1 {
-        font-size: 1.8rem;
+      .site-header {
+        border-radius: 16px;
+      }
+
+      .items-grid {
+        grid-template-columns: minmax(0, 1fr); /* One column on mobile */
       }
 
       .menu-shell {
         padding: 12px;
       }
-
-      .items-grid {
-        grid-template-columns: minmax(0, 1fr); /* Single column on mobile */
-      }
     }
 
     .item-card {
       background: var(--card);
-      border-radius: 12px;
-      border: 1px solid #f1e6d8;
-      padding: 8px 10px;
+      border-radius: 14px;
+      border: 1px solid #f2e4d4;
+      padding: 9px 11px 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      box-shadow: 0 3px 7px rgba(0, 0, 0, 0.03);
+      gap: 3px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .item-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        circle at top right,
+        rgba(255, 219, 170, 0.22),
+        transparent 60%
+      );
+      opacity: 0.9;
+      pointer-events: none;
     }
 
     .item-top-row {
+      position: relative;
       display: flex;
       justify-content: space-between;
       gap: 8px;
@@ -260,122 +275,26 @@
     }
 
     .item-name {
-      font-size: 0.96rem;
-      font-weight: 500;
+      font-size: 0.98rem;
+      font-weight: 540;
+      color: #3b2c1e;
     }
 
     .item-price {
-      font-size: 0.92rem;
-      font-weight: 600;
-      color: #1f3f2a;
+      font-size: 0.95rem;
+      font-weight: 650;
+      color: #21512f;
       white-space: nowrap;
     }
 
     .item-meta {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-    }
-
-    .qty-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-      margin-top: 4px;
-    }
-
-    .qty-label {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-    }
-
-    .qty-controls {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      background: #f8f1e7;
-      border-radius: 999px;
-      padding: 2px 4px;
-    }
-
-    .qty-btn {
-      border: none;
-      background: transparent;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      cursor: pointer;
-      color: #5a4522;
-    }
-
-    .qty-btn:hover {
-      background: #ecd9c1;
-    }
-
-    .qty-display {
-      min-width: 24px;
-      text-align: center;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #3b2b15;
-    }
-
-    /* CART SUMMARY */
-
-    .cart-summary {
-      margin-top: 16px;
-      padding-top: 10px;
-      border-top: 1px dashed var(--border);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .cart-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .total-label {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    .total-amount {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #1f3f2a;
-    }
-
-    .cart-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 4px;
-    }
-
-    textarea#orderDetails {
-      width: 100%;
-      min-height: 90px;
-      resize: vertical;
-      border-radius: 12px;
-      border: 1px solid #e2d6c7;
-      padding: 8px 10px;
+      position: relative;
       font-size: 0.8rem;
-      font-family: inherit;
-      background: #fdf9f4;
-      color: #333;
+      color: var(--text-muted);
     }
 
     .note {
-      margin-top: 8px;
+      margin-top: 12px;
       font-size: 0.78rem;
       text-align: center;
       color: var(--text-muted);
@@ -385,192 +304,106 @@
 
 <body>
   <div class="page">
-    <header>
-      <div class="brand-pill">
-        <span>Fresh&nbsp;&bull;&nbsp;Homemade</span>
-      </div>
-      <h1>Mother Snacks</h1>
-      <p class="tagline">Traditional Sweets &amp; Savouries made at home</p>
-      <p class="contact-line">
-        Call / WhatsApp:
-        <strong>+91&nbsp;97864&nbsp;47416</strong>
-      </p>
-
-      <div class="cta-row">
-        <a
-          class="btn-primary"
-          href="https://wa.me/919786447416"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          📲 Chat on WhatsApp
-        </a>
-        <button
-          class="btn-ghost"
-          type="button"
-          onclick="window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });"
-        >
-          📃 Scroll to full menu
-        </button>
+    <!-- Sticky, shrinking header -->
+    <header id="pageHeader" class="site-header">
+      <div class="site-header-inner">
+        <div class="badge-pill">Fresh • Homemade</div>
+        <h1 class="site-title">Mother Snacks</h1>
+        <p class="tagline">Traditional Sweets &amp; Savouries made at home</p>
+        <p class="contact-line">
+          Call / WhatsApp:
+          <strong>+91&nbsp;97864&nbsp;47416</strong>
+        </p>
       </div>
     </header>
 
+    <!-- Read-only menu -->
     <main class="menu-shell">
       <div class="menu-header-strip">
         <h2>Menu &amp; Price List</h2>
-        <span class="badge-open">Pre-order only</span>
+        <span class="badge-soft">Homemade, by pre-order</span>
       </div>
 
       <!-- Sweets -->
       <section class="menu-section" id="sweets">
         <div class="menu-section-header">
           <div class="menu-section-title">Sweets</div>
-          <div class="menu-section-note">Perfect for functions &amp; gifting</div>
+          <div class="menu-section-note">
+            Perfect for festivals, functions &amp; gifting
+          </div>
         </div>
 
         <div class="items-grid">
-          <div class="item-card" data-name="Ghee Mysore Pak" data-price="200" data-unit="250 gm">
+          <div class="item-card">
             <div class="item-top-row">
               <div class="item-name">Ghee Mysore Pak</div>
               <div class="item-price">₹ 200 / 250&nbsp;gm</div>
             </div>
             <div class="item-meta">Rich, soft, ghee-based sweet</div>
-            <div class="qty-row">
-              <span class="qty-label">Qty (packs):</span>
-              <div class="qty-controls">
-                <button class="qty-btn" type="button" data-change="-1">−</button>
-                <span class="qty-display">0</span>
-                <button class="qty-btn" type="button" data-change="1">+</button>
-              </div>
-            </div>
           </div>
 
-          <div class="item-card" data-name="Laddu" data-price="150" data-unit="250 gm">
+          <div class="item-card">
             <div class="item-top-row">
               <div class="item-name">Laddu</div>
               <div class="item-price">₹ 150 / 250&nbsp;gm</div>
             </div>
             <div class="item-meta">Classic boondi laddu</div>
-            <div class="qty-row">
-              <span class="qty-label">Qty (packs):</span>
-              <div class="qty-controls">
-                <button class="qty-btn" type="button" data-change="-1">−</button>
-                <span class="qty-display">0</span>
-                <button class="qty-btn" type="button" data-change="1">+</button>
-              </div>
-            </div>
           </div>
 
-          <div class="item-card" data-name="Maa Laddu" data-price="150" data-unit="250 gm">
+          <div class="item-card">
             <div class="item-top-row">
               <div class="item-name">Maa Laddu</div>
               <div class="item-price">₹ 150 / 250&nbsp;gm</div>
             </div>
             <div class="item-meta">Roasted gram flour sweet balls</div>
-            <div class="qty-row">
-              <span class="qty-label">Qty (packs):</span>
-              <div class="qty-controls">
-                <button class="qty-btn" type="button" data-change="-1">−</button>
-                <span class="qty-display">0</span>
-                <button class="qty-btn" type="button" data-change="1">+</button>
-              </div>
-            </div>
           </div>
 
-          <div class="item-card" data-name="Sweet Somas" data-price="75" data-unit="5 pieces">
+          <div class="item-card">
             <div class="item-top-row">
               <div class="item-name">Sweet Somas</div>
               <div class="item-price">₹ 75 / 5 pcs</div>
             </div>
-            <div class="item-meta">Crispy outer, sweet filling</div>
-            <div class="qty-row">
-              <span class="qty-label">Qty (sets of 5):</span>
-              <div class="qty-controls">
-                <button class="qty-btn" type="button" data-change="-1">−</button>
-                <span class="qty-display">0</span>
-                <button class="qty-btn" type="button" data-change="1">+</button>
-              </div>
-            </div>
+            <div class="item-meta">Crispy outer, coconut-jaggery filling</div>
           </div>
 
-          <div class="item-card" data-name="Adhirasam" data-price="150" data-unit="250 gm">
+          <div class="item-card">
             <div class="item-top-row">
               <div class="item-name">Adhirasam</div>
               <div class="item-price">₹ 150 / 250&nbsp;gm</div>
             </div>
             <div class="item-meta">Traditional jaggery-based sweet</div>
-            <div class="qty-row">
-              <span class="qty-label">Qty (packs):</span>
-              <div class="qty-controls">
-                <button class="qty-btn" type="button" data-change="-1">−</button>
-                <span class="qty-display">0</span>
-                <button class="qty-btn" type="button" data-change="1">+</button>
-              </div>
-            </div>
           </div>
 
-          <div class="item-card" data-name="Boli" data-price="25" data-unit="piece">
+          <div class="item-card">
             <div class="item-top-row">
               <div class="item-name">Boli</div>
               <div class="item-price">₹ 25 / piece</div>
             </div>
             <div class="item-meta">Soft chana-dal sweet poli</div>
-            <div class="qty-row">
-              <span class="qty-label">Qty (pieces):</span>
-              <div class="qty-controls">
-                <button class="qty-btn" type="button" data-change="-1">−</button>
-                <span class="qty-display">0</span>
-                <button class="qty-btn" type="button" data-change="1">+</button>
-              </div>
-            </div>
           </div>
 
-          <div class="item-card" data-name="Vanilla Burfi" data-price="185" data-unit="250 gm">
+          <div class="item-card">
             <div class="item-top-row">
               <div class="item-name">Vanilla Burfi</div>
               <div class="item-price">₹ 185 / 250&nbsp;gm</div>
             </div>
-            <div class="item-meta">Milk-based barfi with vanilla flavour</div>
-            <div class="qty-row">
-              <span class="qty-label">Qty (packs):</span>
-              <div class="qty-controls">
-                <button class="qty-btn" type="button" data-change="-1">−</button>
-                <span class="qty-display">0</span>
-                <button class="qty-btn" type="button" data-change="1">+</button>
-              </div>
-            </div>
+            <div class="item-meta">Milk-based burfi with vanilla flavour</div>
           </div>
 
-          <div class="item-card" data-name="Peanut Burfi" data-price="95" data-unit="200 gm">
+          <div class="item-card">
             <div class="item-top-row">
               <div class="item-name">Peanut Burfi</div>
               <div class="item-price">₹ 95 / 200&nbsp;gm</div>
             </div>
             <div class="item-meta">Groundnut jaggery squares</div>
-            <div class="qty-row">
-              <span class="qty-label">Qty (packs):</span>
-              <div class="qty-controls">
-                <button class="qty-btn" type="button" data-change="-1">−</button>
-                <span class="qty-display">0</span>
-                <button class="qty-btn" type="button" data-change="1">+</button>
-              </div>
-            </div>
           </div>
 
-          <div class="item-card" data-name="Sesame Burfi" data-price="65" data-unit="100 gm">
+          <div class="item-card">
             <div class="item-top-row">
               <div class="item-name">Sesame Burfi</div>
               <div class="item-price">₹ 65 / 100&nbsp;gm</div>
             </div>
             <div class="item-meta">Ellu (til) sweet squares</div>
-            <div class="qty-row">
-              <span class="qty-label">Qty (packs):</span>
-              <div class="qty-controls">
-                <button class="qty-btn" type="button" data-change="-1">−</button>
-                <span class="qty-display">0</span>
-                <button class="qty-btn" type="button" data-change="1">+</button>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -579,104 +412,56 @@
       <section class="menu-section" id="podi">
         <div class="menu-section-header">
           <div class="menu-section-title">Podi &amp; Pickles</div>
-          <div class="menu-section-note">Homemade with quality ingredients</div>
+          <div class="menu-section-note">Homemade spice mixes &amp; condiments</div>
         </div>
 
         <div class="items-grid">
-          <div class="item-card" data-name="Idly Podi" data-price="75" data-unit="100 gm">
+          <div class="item-card">
             <div class="item-top-row">
               <div class="item-name">Idly Podi</div>
               <div class="item-price">₹ 75 / 100&nbsp;gm</div>
             </div>
-            <div class="item-meta">Gun-powder for idly &amp; dosa</div>
-            <div class="qty-row">
-              <span class="qty-label">Qty (packs):</span>
-              <div class="qty-controls">
-                <button class="qty-btn" type="button" data-change="-1">−</button>
-                <span class="qty-display">0</span>
-                <button class="qty-btn" type="button" data-change="1">+</button>
-              </div>
-            </div>
+            <div class="item-meta">“Gun-powder” for idly &amp; dosa</div>
           </div>
 
-          <div class="item-card" data-name="Rasam Podi" data-price="60" data-unit="50 gm">
+          <div class="item-card">
             <div class="item-top-row">
               <div class="item-name">Rasam Podi</div>
               <div class="item-price">₹ 60 / 50&nbsp;gm</div>
             </div>
             <div class="item-meta">Fragrant spice mix for rasam</div>
-            <div class="qty-row">
-              <span class="qty-label">Qty (packs):</span>
-              <div class="qty-controls">
-                <button class="qty-btn" type="button" data-change="-1">−</button>
-                <span class="qty-display">0</span>
-                <button class="qty-btn" type="button" data-change="1">+</button>
-              </div>
-            </div>
           </div>
 
-          <div class="item-card" data-name="Paruppu Podi" data-price="75" data-unit="100 gm">
+          <div class="item-card">
             <div class="item-top-row">
               <div class="item-name">Paruppu Podi</div>
               <div class="item-price">₹ 75 / 100&nbsp;gm</div>
             </div>
-            <div class="item-meta">Dal powder for rice &amp; ghee</div>
-            <div class="qty-row">
-              <span class="qty-label">Qty (packs):</span>
-              <div class="qty-controls">
-                <button class="qty-btn" type="button" data-change="-1">−</button>
-                <span class="qty-display">0</span>
-                <button class="qty-btn" type="button" data-change="1">+</button>
-              </div>
-            </div>
+            <div class="item-meta">Dal powder to mix with rice &amp; ghee</div>
           </div>
 
-          <div class="item-card" data-name="Tomato Thokku" data-price="75" data-unit="100 gm">
+          <div class="item-card">
             <div class="item-top-row">
               <div class="item-name">Tomato Thokku</div>
               <div class="item-price">₹ 75 / 100&nbsp;gm</div>
             </div>
             <div class="item-meta">Tangy tomato pickle</div>
-            <div class="qty-row">
-              <span class="qty-label">Qty (packs):</span>
-              <div class="qty-controls">
-                <button class="qty-btn" type="button" data-change="-1">−</button>
-                <span class="qty-display">0</span>
-                <button class="qty-btn" type="button" data-change="1">+</button>
-              </div>
-            </div>
           </div>
 
-          <div class="item-card" data-name="Amla Pickle" data-price="70" data-unit="100 gm">
+          <div class="item-card">
             <div class="item-top-row">
               <div class="item-name">Amla Pickle</div>
               <div class="item-price">₹ 70 / 100&nbsp;gm</div>
             </div>
             <div class="item-meta">Nellikai oorugai</div>
-            <div class="qty-row">
-              <span class="qty-label">Qty (packs):</span>
-              <div class="qty-controls">
-                <button class="qty-btn" type="button" data-change="-1">−</button>
-                <span class="qty-display">0</span>
-                <button class="qty-btn" type="button" data-change="1">+</button>
-              </div>
-            </div>
           </div>
 
-          <div class="item-card" data-name="Mango Pickle" data-price="70" data-unit="100 gm">
+          <div class="item-card">
             <div class="item-top-row">
               <div class="item-name">Mango Pickle</div>
               <div class="item-price">₹ 70 / 100&nbsp;gm</div>
             </div>
-              <div class="item-meta">Maavadu style raw mango pickle</div>
-            <div class="qty-row">
-              <span class="qty-label">Qty (packs):</span>
-              <div class="qty-controls">
-                <button class="qty-btn" type="button" data-change="-1">−</button>
-                <span class="qty-display">0</span>
-                <button class="qty-btn" type="button" data-change="1">+</button>
-              </div>
-            </div>
+            <div class="item-meta">Raw mango spicy pickle</div>
           </div>
         </div>
       </section>
@@ -689,213 +474,66 @@
         </div>
 
         <div class="items-grid">
-          <div class="item-card" data-name="Thattai" data-price="150" data-unit="250 gm">
+          <div class="item-card">
             <div class="item-top-row">
               <div class="item-name">Thattai</div>
               <div class="item-price">₹ 150 / 250&nbsp;gm</div>
             </div>
             <div class="item-meta">Crispy rice crackers</div>
-            <div class="qty-row">
-              <span class="qty-label">Qty (packs):</span>
-              <div class="qty-controls">
-                <button class="qty-btn" type="button" data-change="-1">−</button>
-                <span class="qty-display">0</span>
-                <button class="qty-btn" type="button" data-change="1">+</button>
-              </div>
-            </div>
           </div>
 
-          <div class="item-card" data-name="Mixture" data-price="140" data-unit="250 gm">
+          <div class="item-card">
             <div class="item-top-row">
               <div class="item-name">Mixture</div>
               <div class="item-price">₹ 140 / 250&nbsp;gm</div>
             </div>
             <div class="item-meta">South Indian mixture</div>
-            <div class="qty-row">
-              <span class="qty-label">Qty (packs):</span>
-              <div class="qty-controls">
-                <button class="qty-btn" type="button" data-change="-1">−</button>
-                <span class="qty-display">0</span>
-                <button class="qty-btn" type="button" data-change="1">+</button>
-              </div>
-            </div>
           </div>
 
-          <div class="item-card" data-name="Ribbon Pakoda" data-price="130" data-unit="250 gm">
+          <div class="item-card">
             <div class="item-top-row">
               <div class="item-name">Ribbon Pakoda</div>
               <div class="item-price">₹ 130 / 250&nbsp;gm</div>
             </div>
             <div class="item-meta">Traditional ribbon murukku</div>
-            <div class="qty-row">
-              <span class="qty-label">Qty (packs):</span>
-              <div class="qty-controls">
-                <button class="qty-btn" type="button" data-change="-1">−</button>
-                <span class="qty-display">0</span>
-                <button class="qty-btn" type="button" data-change="1">+</button>
-              </div>
-            </div>
           </div>
 
-          <div class="item-card" data-name="Ragi Ribbon Pakoda" data-price="150" data-unit="250 gm">
+          <div class="item-card">
             <div class="item-top-row">
               <div class="item-name">Ragi Ribbon Pakoda</div>
               <div class="item-price">₹ 150 / 250&nbsp;gm</div>
             </div>
             <div class="item-meta">Millet-based healthy snack</div>
-            <div class="qty-row">
-              <span class="qty-label">Qty (packs):</span>
-              <div class="qty-controls">
-                <button class="qty-btn" type="button" data-change="-1">−</button>
-                <span class="qty-display">0</span>
-                <button class="qty-btn" type="button" data-change="1">+</button>
-              </div>
-            </div>
           </div>
 
-          <div class="item-card" data-name="Kara Boondhi" data-price="140" data-unit="250 gm">
+          <div class="item-card">
             <div class="item-top-row">
               <div class="item-name">Kara Boondhi</div>
               <div class="item-price">₹ 140 / 250&nbsp;gm</div>
             </div>
             <div class="item-meta">Spicy boondhi mix</div>
-            <div class="qty-row">
-              <span class="qty-label">Qty (packs):</span>
-              <div class="qty-controls">
-                <button class="qty-btn" type="button" data-change="-1">−</button>
-                <span class="qty-display">0</span>
-                <button class="qty-btn" type="button" data-change="1">+</button>
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
-      <!-- CART SUMMARY -->
-      <section class="cart-summary">
-        <div class="cart-row">
-          <div class="total-label">Total amount (approx.)</div>
-          <div id="cartTotal" class="total-amount">₹ 0.00</div>
-        </div>
-
-        <textarea id="orderDetails" readonly>No items selected.</textarea>
-
-        <div class="cart-actions">
-          <button id="checkoutGpay" class="btn-secondary" type="button" disabled>
-            💳 Pay with UPI / GPay
-          </button>
-          <button id="sendWhatsapp" class="btn-primary" type="button" disabled>
-            📩 Send order on WhatsApp
-          </button>
-        </div>
-      </section>
-
       <p class="note">
-        Prices are indicative and may change. Please confirm current price and
-        minimum order quantity while placing your order.
+        All items are prepared fresh against order. Prices are indicative and may
+        change; please confirm while ordering via call or WhatsApp.
       </p>
     </main>
   </div>
 
   <script>
-    // Your UPI & WhatsApp details
-    const UPI_ID = "radhika21.p@okicici";
-    const MERCHANT_NAME = "Mother Snacks";
-    const WHATSAPP_NUMBER = "919786447416"; // with country code, no +
+    // Shrink / expand sticky header on scroll
+    const header = document.getElementById("pageHeader");
 
-    const totalEl = document.getElementById("cartTotal");
-    const orderDetailsEl = document.getElementById("orderDetails");
-    const checkoutBtn = document.getElementById("checkoutGpay");
-    const whatsappBtn = document.getElementById("sendWhatsapp");
-
-    function recalcCart() {
-      const cards = document.querySelectorAll(".item-card");
-      let total = 0;
-      const lines = [];
-
-      cards.forEach((card) => {
-        const price = parseFloat(card.dataset.price || "0");
-        const name = card.dataset.name || "";
-        const unit = card.dataset.unit || "";
-        const qtyDisplay = card.querySelector(".qty-display");
-        const qty = parseInt(qtyDisplay.textContent || "0", 10);
-
-        if (qty > 0 && price > 0) {
-          const itemTotal = price * qty;
-          total += itemTotal;
-          lines.push(
-            `${name} x ${qty} (${unit}) = ₹ ${itemTotal.toFixed(2)}`
-          );
-        }
-      });
-
-      totalEl.textContent = "₹ " + total.toFixed(2);
-
-      if (lines.length === 0) {
-        orderDetailsEl.value = "No items selected.";
-        checkoutBtn.disabled = true;
-        whatsappBtn.disabled = true;
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 40) {
+        header.classList.add("scrolled");
       } else {
-        orderDetailsEl.value =
-          "Mother Snacks – Order\n\n" +
-          lines.join("\n") +
-          "\n\nTotal: ₹ " +
-          total.toFixed(2) +
-          "\n\n(Prices subject to confirmation)";
-        checkoutBtn.disabled = false;
-        whatsappBtn.disabled = false;
+        header.classList.remove("scrolled");
       }
-
-      checkoutBtn.dataset.amount = total.toFixed(2);
-    }
-
-    // plus / minus buttons
-    document.querySelectorAll(".qty-btn").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const change = parseInt(btn.dataset.change || "0", 10);
-        const card = btn.closest(".item-card");
-        const display = card.querySelector(".qty-display");
-        let current = parseInt(display.textContent || "0", 10);
-        if (isNaN(current)) current = 0;
-        current += change;
-        if (current < 0) current = 0;
-        if (current > 99) current = 99;
-        display.textContent = String(current);
-        recalcCart();
-      });
     });
-
-    // Checkout with UPI / GPay
-    checkoutBtn.addEventListener("click", () => {
-      const amount = parseFloat(checkoutBtn.dataset.amount || "0");
-      if (!amount || amount <= 0) return;
-
-      const upiUrl =
-        "upi://pay?" +
-        "pa=" + encodeURIComponent(UPI_ID) +
-        "&pn=" + encodeURIComponent(MERCHANT_NAME) +
-        "&am=" + encodeURIComponent(amount.toFixed(2)) +
-        "&cu=INR" +
-        "&tn=" + encodeURIComponent("Mother Snacks order");
-
-      window.location.href = upiUrl; // On mobile this opens UPI / GPay
-    });
-
-    // Send order on WhatsApp
-    whatsappBtn.addEventListener("click", () => {
-      const text = orderDetailsEl.value || "";
-      const url =
-        "https://wa.me/" +
-        WHATSAPP_NUMBER +
-        "?text=" +
-        encodeURIComponent(text);
-      window.open(url, "_blank");
-    });
-
-    // initialise once
-    recalcCart();
   </script>
 </body>
 </html>
-
-
