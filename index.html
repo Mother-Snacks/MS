@@ -7,46 +7,51 @@
 
 <style>
   :root{
-    /* Slightly more vibrant colors */
-    --bg:#fff2e1; 
+    /* Rich Sunset Theme Palette */
+    --bg-start: #fef7f0; 
+    --bg-end: #fcf4ec; 
     --card:#ffffff;
-    --accent:#e88927; /* Brighter orange */
-    --accent-dark:#995a1c; /* Deeper brown */
-    --muted:#7a6a5c;
-    --sweets:#ffe8f4; /* Pinker/vibrant sweet section */
-    --podi:#fffde3; /* Lighter yellow */
-    --savory:#e9fce8; /* Lighter green */
-    --text:#2b241d;
+    --accent:#d16e34; /* Rich Terracotta Orange */
+    --accent-dark:#8c4c23; /* Deep Rust Brown for text/titles */
+    --muted:#6b5f54; /* Warm Gray */
+    --sweets:#fff3f6; /* Pale Rose Pink */
+    --podi:#fffcf0; /* Very Pale Yellow */
+    --savory:#f6fff3; /* Pale Mint Green */
+    --text:#3d3329; /* Dark Coffee Text */
+    --price-color:#2a7a40; /* Vibrant Green for Prices */
+    --shadow: rgba(130, 90, 70, 0.08); /* Warm, soft shadow */
   }
 
   body {
     margin:0;
     font-family: system-ui, sans-serif;
-    /* Slightly more vibrant gradient */
-    background: linear-gradient(120deg, #ffe9d6 0%, #fff7f0 50%);
+    /* Soft gradient background */
+    background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
     color: var(--text);
+    line-height: 1.5;
   }
 
   .container {
-    max-width: 940px;
-    margin: 14px auto;
-    padding: 12px;
+    max-width: 960px;
+    margin: 20px auto;
+    padding: 15px;
   }
 
   /* Sticky Header */
   .header {
     position: sticky;
-    top: 0;
+    top: 15px;
     z-index: 50;
-    background: rgba(255,255,255,0.9); /* Slightly more opaque */
-    backdrop-filter: blur(10px);
-    padding: 16px;
-    border-radius: 18px;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.15);
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    padding: 20px 25px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px var(--shadow);
+    border: 1px solid #f0e0d5;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom: 16px;
+    margin-bottom: 25px;
   }
 
   .title-block {
@@ -55,60 +60,74 @@
   }
 
   .site-title {
-    font-size: 1.6rem;
-    font-weight: 800;
-    color:var(--accent-dark);
-    letter-spacing: 0.08em;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color:var(--accent);
+    letter-spacing: 0.1em;
     text-transform: uppercase;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.05);
   }
 
   .site-sub {
-    color:#866a52;
-    font-size:.9rem;
+    color:var(--muted);
+    font-size:.95rem;
+    font-weight: 500;
+    margin-top: 2px;
   }
 
   .controls {
     display:flex;
-    gap:10px;
+    gap:12px;
   }
 
   .toggle, .btn-wa {
     border:0;
-    padding: 8px 12px;
-    font-weight:600;
-    border-radius:8px;
+    padding: 10px 18px;
+    font-weight:700;
+    border-radius:10px;
     cursor:pointer;
     text-decoration:none;
+    transition: transform 0.2s, box-shadow 0.2s;
   }
 
   .toggle {
     background: var(--accent);
     color: white;
   }
+  
+  .toggle:hover, .btn-wa:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  }
 
-  .btn-wa { background:#25D366;color:white; }
+  .btn-wa { 
+    background:#25D366;
+    color:white; 
+    box-shadow: 0 3px 10px rgba(37, 211, 102, 0.4);
+}
 
   .menu-card {
     background: var(--card);
-    padding:18px;
-    border-radius:16px;
-    margin-top:10px;
-    box-shadow:0 6px 26px rgba(0,0,0,0.08);
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 12px 40px var(--shadow);
   }
 
   .menu-header {
     display:flex;
     justify-content:space-between;
-    margin-bottom:12px;
+    margin-bottom:18px;
     color:var(--muted);
-    font-size:.85rem;
+    font-size:.9rem;
+    font-weight: 600;
     text-transform:uppercase;
   }
 
   .section {
-    padding:12px;
-    border-radius:16px;
-    margin-bottom:18px;
+    padding:18px;
+    border-radius:18px;
+    margin-bottom:30px;
+    border: 1px solid rgba(0,0,0,0.05);
   }
 
   .section-sweets { background: var(--sweets); }
@@ -117,20 +136,25 @@
 
   .section h3 {
     margin:0 0 4px 0;
-    font-size:1.3rem;
+    font-size:1.5rem;
     color:var(--accent-dark);
+    border-bottom: 2px solid var(--accent);
+    display: inline-block;
+    padding-bottom: 4px;
   }
   
   .section-tagline {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--muted);
-    margin-bottom: 12px;
+    margin-bottom: 15px;
+    margin-top: 8px;
+    font-style: italic;
   }
 
   .items {
     display:grid;
     grid-template-columns: repeat(2,1fr);
-    gap:12px;
+    gap:15px;
   }
 
   @media(max-width:720px){
@@ -138,22 +162,24 @@
   }
 
   .item {
-    background:#fff;
-    padding:12px;
+    background:var(--card);
+    padding:15px;
     border-radius:12px;
     border:1px solid #f3e6db;
-    box-shadow:0 4px 10px rgba(0,0,0,0.05);
+    box-shadow:0 3px 8px rgba(0,0,0,0.03);
   }
 
   .item-top {
     display:flex;
     justify-content:space-between;
-    font-weight:600;
+    font-weight:700;
+    font-size: 1.05rem;
   }
 
   .item-price {
-    color:#1d6b2f;
-    font-weight:700;
+    color:var(--price-color);
+    font-weight:800;
+    letter-spacing: 0.02em;
   }
 
   .item-desc {
@@ -179,7 +205,7 @@
 
     <div class="controls">
             <button class="toggle" id="langToggle" aria-label="Toggle language between English and Tamil">தமிழ்</button> 
-      <a class="btn-wa" href="https://wa.me/919786447416?text=Hi%2C%20I%20want%20to%20order%20Mother%20Snacks" target="_blank">📦 Order</a>
+      <a class="btn-wa" href="https://wa.me/919786447416?text=Hi%2C%20I%20want%20to%20order%20Mother%20Snacks" target="_blank">📦 Order Now</a>
     </div>
   </div>
 
@@ -189,12 +215,14 @@
       <div>Menu & Price List</div>
       <div>Homemade • Pre-order</div>
     </div>
+    
+    ---
 
         <section class="section section-sweets">
       <h3>🍬 <span class="eng">Sweets</span><span class="lang-tam" aria-hidden="true">இனிப்பு</span></h3>
       <p class="section-tagline">
-        <span class="eng">Made with love and pure ingredients, perfect for festivals and celebrations.</span>
-        <span class="lang-tam" aria-hidden="true">அன்புடனும் தூய பொருட்களுடனும் தயாரிக்கப்பட்டது, பண்டிகைகள் மற்றும் கொண்டாட்டங்களுக்கு ஏற்றது.</span>
+        <span class="eng">Made with **pure ghee** and love, perfect for festivals and celebrations.</span>
+        <span class="lang-tam" aria-hidden="true">**தூய நெய்** மற்றும் அன்புடன் தயாரிக்கப்பட்டது, பண்டிகைகள் மற்றும் கொண்டாட்டங்களுக்கு ஏற்றது.</span>
       </p>
 
       <div class="items">
@@ -274,11 +302,13 @@
       </div>
     </section>
 
+    ---
+
         <section class="section section-podi">
       <h3>🌶️ <span class="eng">Podi & Pickles</span><span class="lang-tam" aria-hidden="true">பொடி & ஊறுகாய்</span></h3>
       <p class="section-tagline">
-        <span class="eng">Enhance your meals with our authentic, freshly ground spice powders and tangly pickles.</span>
-        <span class="lang-tam" aria-hidden="true">எங்களின் உண்மையான, புதியதாக அரைக்கப்பட்ட மசாலாப் பொடிகள் மற்றும் புளிப்பு ஊறுகாய்களுடன் உங்கள் உணவை மேம்படுத்துங்கள்.</span>
+        <span class="eng">Enhance your daily meals with our **authentic, freshly ground** spice powders and tangly pickles.</span>
+        <span class="lang-tam" aria-hidden="true">எங்களின் **உண்மையான, புதியதாக அரைக்கப்பட்ட** மசாலாப் பொடிகள் மற்றும் புளிப்பு ஊறுகாய்களுடன் உங்கள் தினசரி உணவை மேம்படுத்துங்கள்.</span>
       </p>
 
       <div class="items">
@@ -328,11 +358,13 @@
       </div>
     </section>
 
+    ---
+
         <section class="section section-savory">
       <h3>🍘 <span class="eng">Savouries</span><span class="lang-tam" aria-hidden="true">கார உணவு</span></h3>
       <p class="section-tagline">
-        <span class="eng">Crispy, crunchy, and perfectly spiced snacks for your evening coffee or tea.</span>
-        <span class="lang-tam" aria-hidden="true">உங்கள் மாலை காபி அல்லது தேநீருக்கான மொறுமொறுப்பான மற்றும் காரமான தின்பண்டங்கள்.</span>
+        <span class="eng">**Crispy and crunchy** snacks, perfect companions for your evening coffee or tea.</span>
+        <span class="lang-tam" aria-hidden="true">உங்கள் மாலை காபி அல்லது தேநீருக்கான **மொறுமொறுப்பான மற்றும் காரமான** தின்பண்டங்கள்.</span>
       </p>
 
       <div class="items">
