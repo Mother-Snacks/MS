@@ -124,4 +124,195 @@
   .section h3 {
     font-size: 1.4rem; font-weight: 900; margin-bottom: 14px;
     background: linear-gradient(90deg, #e74c3c, #ff6b35);
-    -webkit-backgr
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .items { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .item {
+    background: white; padding: 16px; border-radius: 16px;
+    border: 2px solid #ffd7a3; box-shadow: 0 8px 25px rgba(255,152,0,0.15);
+    transition: all 0.22s ease;
+  }
+  .item:active { transform: translateY(-6px); box-shadow: 0 16px 35px rgba(255,152,0,0.3); border-color: var(--accent); }
+
+  .item-top {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 1.05rem; font-weight: 800; color: #d35400;
+    margin-bottom: 8px;
+  }
+  .item-price {
+    color: #27ae60; font-weight: 900; font-size: 1.05rem;
+  }
+  .item-tagline {
+    font-size: 0.98rem; color: #c0392b; font-weight: 600; font-style: italic;
+  }
+
+  .lang-tam { display: none; }
+  .eng { display: inline; }
+
+  /* Mobile-specific behavior */
+  @media (max-width: 480px) {
+    .container { padding: 10px; }
+    .logo img { height: 56px; }
+    .brand-title { font-size: 1.4rem; }
+    .brand-subtitle { font-size: 0.95rem; }
+    .phone-line { font-size: 1rem; }
+    .phone-link svg { width: 24px; height: 24px; }
+
+    /* show hamburger */
+    .hamburger { display: flex; }
+    /* hide header content by default on small screens */
+    .header-content { display: none; flex-direction: column; gap: 10px; width: 100%; }
+    .header-content.active { display: flex; }
+
+    /* adjust header layout for mobile when collapsed (hamburger visible) */
+    .header { align-items: flex-start; padding: 10px; }
+
+    .menu-card { padding: 16px; }
+    .section { padding: 14px; border-radius: 14px; }
+    .items { gap: 12px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+    .item { padding: 12px; border-radius: 12px; }
+    .item-top { font-size: 0.98rem; }
+    .item-tagline { font-size: 0.85rem; }
+    .lang-btn { padding: 8px 14px; font-size: 0.95rem; min-width: 72px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header class="header" role="banner">
+    <!-- Hamburger (visible on mobile) -->
+    <button class="hamburger" id="hamburger" aria-label="Toggle header" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <!-- Header content (logo + phone + lang) -->
+    <div class="header-content" id="headerContent">
+      <div class="logo-area" role="img" aria-label="Mother Snacks logo">
+        <div class="logo">
+          <img src="https://i.postimg.cc/bNvCp3BZ/MS-LOGO-removebg-preview.png" alt="Mother Snacks">
+        </div>
+        <div class="brand-text">
+          <div class="brand-title">Mother Snacks</div>
+          <div class="brand-subtitle">Pure Love • Homemade Happiness</div>
+          <div class="phone-line">
+            <a href="https://wa.me/919786447416?text=Hi%2C%20I%20want%20to%20order%20Mother%20Snacks" 
+               target="_blank" class="phone-link" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.198-.347.223-.644.075-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.297-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.227 1.36.195 1.871.118.57-.087 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335 .157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg>
+              +91 97864 47416
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-left:auto; display:flex; align-items:center;">
+        <button id="langToggle" class="lang-btn" aria-pressed="false">தமிழ்</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="menu-card" role="main">
+      <div class="menu-header">
+        100% Homemade Menu - Made with Love
+      </div>
+
+      <!-- Sweets -->
+      <section class="section section-sweets">
+        <h3><span class="eng">Sweets – Melt-in-Mouth Magic</span><span class="lang-tam">இனிப்புகள் – வாயில் கரையும் மேஜிக்</span></h3>
+        <div class="items">
+          <div class="item"><div class="item-top"><span class="eng">Ghee Mysore Pak</span><span class="lang-tam">நெய் மைசூர் பாக்</span><span class="item-price">₹200 / 250g</span></div><div class="item-tagline"><span class="eng">Buttery, grainy, pure ghee bliss!</span><span class="lang-tam">நெய் துளித்துளியாய் ருசி!</span></div></div>
+          <div class="item"><div class="item-top"><span class="eng">Laddu</span><span class="lang-tam">லட்டு</span><span class="item-price">₹150 / 250g</span></div><div class="item-tagline"><span class="eng">Golden gram flour balls with ghee</span><span class="lang-tam">நெய்யில் முக்கி எடுத்த தங்க லட்டு</span></div></div>
+          <div class="item"><div class="item-top"><span class="eng">Maa Laddu</span><span class="lang-tam">மா லட்டு</span><span class="item-price">₹150 / 250g</span></div><div class="item-tagline"><span class="eng">Roasted gram delight – healthy & tasty!</span><span class="lang-tam">பொரி கடலை மேஜிக்</span></div></div>
+          <div class="item"><div class="item-top"><span class="eng">Sweet Somas</span><span class="lang-tam">இனிப்பு சோமாஸ்</span><span class="item-price">₹75 / 5 pcs</span></div><div class="item-tagline"><span class="eng">Crispy coconut-filled half-moons</span><span class="lang-tam">தேங்காய் நிரம்பிய கிரிஸ்பி அரைநிலா</span></div></div>
+          <div class="item"><div class="item-top"><span class="eng">Adhirasam</span><span class="lang-tam">அதிரசம்</span><span class="item-price">₹150 / 250g</span></div><div class="item-tagline"><span class="eng">Soft jaggery discs – pure tradition!</span><span class="lang-tam">வெல்லத்தில் முக்கிய அதிரசம்</span></div></div>
+          <div class="item"><div class="item-top"><span class="eng">Boli</span><span class="lang-tam">போளி</span><span class="item-price">₹25 / piece</span></div><div class="item-tagline"><span class="eng">Paper-thin sweet lentil delight</span><span class="lang-tam">மெல்லிய இனிப்பு போளி</span></div></div>
+          <div class="item"><div class="item-top"><span class="eng">Vanilla Burfi</span><span class="lang-tam">வெனிலா பர்ஃபி</span><span class="item-price">₹185 / 250g</span></div><div class="item-tagline"><span class="eng">Creamy layers with real vanilla</span><span class="lang-tam">வெனிலா முத்தமிட்ட பால் பர்ஃபி</span></div></div>
+          <div class="item"><div class="item-top"><span class="eng">Peanut Burfi</span><span class="lang-tam">நிலக்கடலை பர்ஃபி</span><span class="item-price">₹95 / 200g</span></div><div class="item-tagline"><span class="eng">Crunchy peanuts in smooth sweetness</span><span class="lang-tam">கடலை மிட்டாய் ருசி</span></div></div>
+          <div class="item"><div class="item-top"><span class="eng">Sesame Burfi</span><span class="lang-tam">எள்ளு பர்ஃபி</span><span class="item-price">₹65 / 100g</span></div><div class="item-tagline"><span class="eng">Nutty black sesame magic!</span><span class="lang-tam">கருப்பு எள்ளின் மாய ருசி</span></div></div>
+        </div>
+      </section>
+
+      <!-- Podi & Pickles -->
+      <section class="section section-podi">
+        <h3><span class="eng">Podi & Pickles – Flavour Bombs!</span><span class="lang-tam">பொடி & ஊறுகாய் – சுவை குண்டுகள்!</span></h3>
+        <div class="items">
+          <div class="item"><div class="item-top"><span class="eng">Idly Podi</span><span class="lang-tam">இட்லி பொடி</span><span class="item-price">₹75 / 100g</span></div><div class="item-tagline"><span class="eng">Spicy, garlicky idli soulmate!</span><span class="lang-tam">பூண்டு காரத்துடன் இட்லியின் தோழன்</span></div></div>
+          <div class="item"><div class="item-top"><span class="eng">Rasam Podi</span><span class="lang-tam">ரசம் பொடி</span><span class="item-price">₹60 / 50g</span></div><div class="item-tagline"><span class="eng">Turns water into rasam magic</span><span class="lang-tam">தண்ணீரை ரசமாக மாற்றும் பொடி</span></div></div>
+          <div class="item"><div class="item-top"><span class="eng">Paruppu Podi</span><span class="lang-tam">பருப்பு பொடி</span><span class="item-price">₹75 / 100g</span></div><div class="item-tagline"><span class="eng">Ghee-roasted lentil power</span><span class="lang-tam">நெய்யில் வதக்கிய பருப்பு சுவை</span></div></div>
+          <div class="item"><div class="item-top"><span class="eng">Tomato Thokku</span><span class="lang-tam">தக்காளி தொக்கு</span><span class="item-price">₹75 / 100g</span></div><div class="item-tagline"><span class="eng">Tangy spicy tomato jam</span><span class="lang-tam">எல்லாவற்றுக்கும் பொருந்தும் தொட்டுக்கோ</span></div></div>
+          <div class="item"><div class="item-top"><span class="eng">Amla Pickle</span><span class="lang-tam">நெல்லிக்காய் ஊறுகாய்</span><span class="item-price">₹70 / 100g</span></div><div class="item-tagline"><span class="eng">Healthy tangy gooseberry pickle</span><span class="lang-tam">ஆரோக்கியம் நிறைந்த ஊறுகாய்</span></div></div>
+          <div class="item"><div class="item-top"><span class="eng">Mango Pickle</span><span class="lang-tam">மாங்காய் ஊறுகாய்</span><span class="item-price">₹70 / 100g</span></div><div class="item-tagline"><span class="eng">Fiery raw mango chunks</span><span class="lang-tam">கார மசாலாவில் ஆடும் மாங்காய்</span></div></div>
+        </div>
+      </section>
+
+      <!-- Savouries -->
+      <section class="section section-savory">
+        <h3><span class="eng">Savouries – Crunch Overload!</span><span class="lang-tam">கார உணவுகள் – க்ரஞ்ச் ஓவர்லோட்!</span></h3>
+        <div class="items">
+          <div class="item"><div class="item-top"><span class="eng">Thattai</span><span class="lang-tam">தட்டை</span><span class="item-price">₹150 / 250g</span></div><div class="item-tagline"><span class="eng">Crispy rice discs with pepper punch</span><span class="lang-tam">மிளகு காரமான க்ரிஸ்பி தட்டை</span></div></div>
+          <div class="item"><div class="item-top"><span class="eng">Mixture</span><span class="lang-tam">மிக்சர்</span><span class="item-price">₹140 / 250g</span></div><div class="item-tagline"><span class="eng">Every handful different & addictive!</span><span class="lang-tam">ஒவ்வொரு கைப்பிடியும் வேற ருசி!</span></div></div>
+          <div class="item"><div class="item-top"><span class="eng">Ribbon Pakoda</span><span class="lang-tam">ரிப்பன் பக்கோடா</span><span class="item-price">₹130 / 250g</span></div><div class="item-tagline"><span class="eng">Golden ribbons you can’t stop eating</span><span class="lang-tam">நிறுத்த முடியாத தங்க ரிப்பன்</span></div></div>
+          <div class="item"><div class="item-top"><span class="eng">Ragi Ribbon Pakoda</span><span class="lang-tam">ராகி ரிப்பன்</span><span class="item-price">₹150 / 250g</span></div><div class="item-tagline"><span class="eng">Healthier millet crunch!</span><span class="lang-tam">ராகி ரிப்பன் – ஆரோக்கிய க்ரஞ்ச்</span></div></div>
+          <div class="item"><div class="item-top"><span class="eng">Kara Boondhi</span><span class="lang-tam">கார பூந்தி</span><span class="item-price">₹140 / 250g</span></div><div class="item-tagline"><span class="eng">Spicy pearl drops that explode!</span><span class="lang-tam">காரம் வெடிக்கும் முத்து பூந்தி</span></div></div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<script>
+  // Language toggle
+  const langBtn = document.getElementById('langToggle');
+  let isTamil = false;
+  langBtn.addEventListener('click', () => {
+    isTamil = !isTamil;
+    document.querySelectorAll('.lang-tam').forEach(el => el.style.display = isTamil ? 'inline' : 'none');
+    document.querySelectorAll('.eng').forEach(el => el.style.display = isTamil ? 'none' : 'inline');
+    langBtn.textContent = isTamil ? "English" : "தமிழ்";
+    langBtn.setAttribute('aria-pressed', String(isTamil));
+  });
+
+  // Hamburger toggle + responsive behavior
+  const hamburger = document.getElementById('hamburger');
+  const headerContent = document.getElementById('headerContent');
+
+  function setHeaderForWidth() {
+    const small = window.matchMedia('(max-width: 480px)').matches;
+    if (!small) {
+      // on larger screens ensure header content always visible and hamburger collapsed
+      headerContent.classList.add('active');
+      hamburger.setAttribute('aria-expanded', 'false');
+    } else {
+      // on small screens start collapsed (no active) so user can open
+      if (!headerContent.classList.contains('active')) {
+        headerContent.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+      }
+    }
+  }
+
+  // initial setup
+  setHeaderForWidth();
+
+  // toggle on click
+  hamburger.addEventListener('click', () => {
+    const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+    hamburger.setAttribute('aria-expanded', String(!expanded));
+    headerContent.classList.toggle('active');
+  });
+
+  // update on resize (keeps state consistent on orientation change)
+  window.addEventListener('resize', () => {
+    setHeaderForWidth();
+  });
+
+  // ensure language defaults (English visible)
+  document.querySelectorAll('.lang-tam').forEach(el => el.style.display = 'none');
+  document.querySelectorAll('.eng').forEach(el => el.style.display = 'inline');
+</script>
+
+</body>
+</html>
