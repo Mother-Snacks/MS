@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Mother Snacks – Menu</title>
+<title>Mother Snacks – Price List</title>
 
 <style>
   :root{
@@ -51,7 +51,7 @@
   .site-sub{font-size:.88rem;color:#866a52;margin-top:4px;white-space:nowrap;overflow:hidden}
   .controls{display:flex;align-items:center;gap:10px}
 
-  /* Floating language toggle (moved to bottom-right) */
+  /* Floating language toggle */
   .lang-float {
     position: fixed;
     right: 18px;
@@ -94,16 +94,17 @@
   .menu-header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
   .menu-header h2{margin:0;font-size:14px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
 
-  /* Pre-order badge box */
+  /* Pre-order badge box (smaller so it fits on mobile) */
   .badge {
     background: linear-gradient(90deg,#fffaf0,#fff2df);
     border:1px solid rgba(0,0,0,0.04);
-    padding:8px 12px;
+    padding:6px 10px;
     border-radius:10px;
     font-weight:800;
     color:var(--accent-dark);
     box-shadow: 0 4px 14px rgba(0,0,0,0.04);
-    font-size:0.92rem;
+    font-size:0.82rem;
+    white-space:nowrap;
   }
 
   .section{padding:14px;border-radius:12px;margin-bottom:16px}
@@ -127,7 +128,7 @@
   /* hide item descriptions only in Tamil mode (controlled by body class) */
   body.tamil .item-desc{display:none}
 
-  /* Footer fixed with WhatsApp icon placed before phone */
+  /* Footer fixed with compact WA icon then phone number (no Pre-order text) */
   .footer{
     position:fixed;
     left:50%;
@@ -141,35 +142,37 @@
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:12px 16px;
+    padding:10px 14px;
     box-shadow:0 10px 30px rgba(0,0,0,0.06);
     z-index:70;
-    font-size:0.95rem;
+    font-size:0.82rem;
     color:var(--muted);
   }
-  .footer .left { font-weight:700; color:var(--accent-dark) }
-  .footer .contact { display:flex; align-items:center; gap:10px; font-weight:700; color:var(--accent-dark) }
+  .footer .left { font-weight:700; color:var(--accent-dark); font-size:0.86rem; }
+  .footer .contact { display:flex; align-items:center; gap:8px; font-weight:700; color:var(--accent-dark); font-size:0.92rem; }
 
-  .footer .wa-icon {
+  /* Compact inline WA icon (small, no circle) */
+  .wa-icon {
     display:inline-flex;
-    width:40px;
-    height:40px;
     align-items:center;
     justify-content:center;
-    border-radius:10px;
-    background:#25D366;
-    color:white;
+    width:auto;
+    height:auto;
+    padding:0;
+    background:none;
+    border-radius:0;
+    box-shadow:none;
+    color:var(--accent-dark);
     text-decoration:none;
-    box-shadow:0 6px 16px rgba(0,0,0,0.12);
   }
+  .wa-icon svg { width:16px; height:16px; display:block; }
 
-  /* small screens */
-  @media (max-width:520px){
-    .site-title{font-size:1rem}
-    .site-sub{display:none}
-    .logo{height:48px}
-    .header{height:72px}
-    .lang-float{right:12px;bottom:calc(12px + var(--footer-h) + 8px)}
+  .wa-icon:focus { outline: 3px solid rgba(37,211,102,0.18); border-radius:4px; }
+
+  /* make badge even smaller on very narrow screens */
+  @media (max-width:420px){
+    .badge { font-size:0.74rem; padding:5px 8px; }
+    .lang-float { right: 10px; bottom: calc(12px + var(--footer-h) + 8px); padding:6px 10px; font-size:0.85rem; }
   }
 </style>
 </head>
@@ -189,15 +192,15 @@
     </div>
 
     <div class="controls" role="navigation" aria-label="Header controls">
-      <!-- Header no longer has lang toggle or WA button -->
+      <!-- intentionally empty -->
     </div>
   </header>
 
   <!-- Scrollable content -->
-  <main class="viewport" role="main" aria-label="Menu content">
-    <article class="menu-card" aria-labelledby="menu-heading">
+  <main class="viewport" role="main" aria-label="Price content">
+    <article class="menu-card" aria-labelledby="price-heading">
       <div class="menu-header">
-        <h2 id="menu-heading">Menu &amp; Price List</h2>
+        <h2 id="price-heading">Price List</h2>
         <div class="badge">Homemade • Pre-order</div>
       </div>
 
@@ -208,7 +211,7 @@
 
         <div class="items">
           <div class="item">
-            <div class="item-top"><div><span class="eng">Ghee Mysore Pak</span><span class="lang-tam">நெய் மைசூர் பக்</span></div><div class="item-price">₹200.00 / 250 gm</div></div>
+            <div class="item-top"><div><span class="eng">Ghee Mysore Pak</span><span class="lang-tam">நெய் மைசூர் பாக்</span></div><div class="item-price">₹200.00 / 250 gm</div></div>
             <div class="item-desc eng">Rich, soft ghee-based sweet</div>
           </div>
 
@@ -239,7 +242,7 @@
 
           <!-- New requested sweets -->
           <div class="item">
-            <div class="item-top"><div><span class="eng">Vanilla Burfi</span><span class="lang-tam">வனிலா பர்ஃபி</span></div><div class="item-price">₹185.00 / 250 gm</div></div>
+            <div class="item-top"><div><span class="eng">Vanilla Burfi</span><span class="lang-tam">வெண்ணிலா பர்ஃபி</span></div><div class="item-price">₹185.00 / 250 gm</div></div>
             <div class="item-desc eng">Milk-based burfi with vanilla</div>
           </div>
 
@@ -317,9 +320,9 @@
             <div class="item-desc eng">Crispy ribbon murukku</div>
           </div>
 
-          <!-- New requested savoury -->
+          <!-- New requested savoury with updated Tamil -->
           <div class="item">
-            <div class="item-top"><div><span class="eng">Ragi Ribbon Pakoda</span><span class="lang-tam">ராகி ரிப்பன்</span></div><div class="item-price">₹150.00 / 250 gm</div></div>
+            <div class="item-top"><div><span class="eng">Ragi Ribbon Pakoda</span><span class="lang-tam">ராகி ரிப்பன் பக்கோடா</span></div><div class="item-price">₹150.00 / 250 gm</div></div>
             <div class="item-desc eng">Millet-based ribbon pakoda</div>
           </div>
 
@@ -334,15 +337,14 @@
     </article>
   </main>
 
-  <!-- Footer (fixed) with WA icon then phone number -->
+  <!-- Footer (fixed): Pre-order removed from footer -->
   <footer class="footer" role="contentinfo">
-    <div class="left">Prepared fresh • <strong>Pre-order</strong></div>
+    <div class="left">Prepared fresh</div>
     <div class="contact">
       <a class="wa-icon" href="https://wa.me/919786447416?text=Hi%2C%20I%20want%20to%20order%20Mother%20Snacks" target="_blank" rel="noopener" aria-label="Order on WhatsApp">
-        <!-- small WA SVG -->
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path d="M20.52 3.48A11.8 11.8 0 0012 0C5.372 0 .5 4.872.5 11.5c0 2.026.53 4.012 1.533 5.77L.04 23.06l5.984-1.546A11.47 11.47 0 0012 23c6.628 0 11.5-4.872 11.5-11.5 0-3.07-1.196-5.91-3.98-8.02z" fill="#25D366"/>
-          <path d="M17.37 14.24c-.31-.16-1.83-.9-2.11-1.01-.28-.11-.48-.16-.68.16-.2.31-.78 1.01-.95 1.22-.17.2-.34.22-.64.07-.3-.16-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.65-2.07-.17-.3-.02-.45.13-.6.14-.14.31-.36.47-.54.16-.18.21-.3.31-.5.1-.2.05-.36-.02-.5-.07-.14-.68-1.64-.93-2.24-.24-.59-.49-.51-.67-.52-.18-.01-.38-.01-.58-.01-.2 0-.52.07-.79.36-.27.28-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.29 3.07.22.2 2.23 3.4 5.4 4.77 3.18 1.37 3.18.92 3.76.86.58-.06 1.83-.74 2.09-1.47.26-.73.26-1.36.18-1.49-.08-.13-.29-.2-.6-.36z" fill="#fff"/>
+        <svg viewBox="0 0 24 24" width="16" height="16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <path fill="#25D366" d="M20.52 3.48A11.8 11.8 0 0012 0C5.372 0 .5 4.872.5 11.5c0 2.026.53 4.012 1.533 5.77L.04 23.06l5.984-1.546A11.47 11.47 0 0012 23c6.628 0 11.5-4.872 11.5-11.5 0-3.07-1.196-5.91-3.98-8.02z"/>
+          <path fill="#fff" d="M17.37 14.24c-.31-.16-1.83-.9-2.11-1.01-.28-.11-.48-.16-.68.16-.2.31-.78 1.01-.95 1.22-.17.2-.34.22-.64.07-.3-.16-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.65-2.07-.17-.3-.02-.45.13-.6.14-.14.31-.36.47-.54.16-.18.21-.3.31-.5.1-.2.05-.36-.02-.5-.07-.14-.68-1.64-.93-2.24-.24-.59-.49-.51-.67-.52-.18-.01-.38-.01-.58-.01-.2 0-.52.07-.79.36-.27.28-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.29 3.07.22.2 2.23 3.4 5.4 4.77 3.18 1.37 3.18.92 3.76.86.58-.06 1.83-.74 2.09-1.47.26-.73.26-1.36.18-1.49-.08-.13-.29-.2-.6-.36z"/>
         </svg>
       </a>
       <span aria-hidden="true">+</span>
@@ -378,7 +380,7 @@
 
   // Accessibility: focus outline for WA icon
   document.querySelectorAll('.wa-icon').forEach(el=>{
-    el.addEventListener('focus', e=> e.target.style.outline = '3px solid rgba(37,211,102,0.25)');
+    el.addEventListener('focus', e=> e.target.style.outline = '3px solid rgba(37,211,102,0.18)');
     el.addEventListener('blur', e=> e.target.style.outline = 'none');
   });
 </script>
