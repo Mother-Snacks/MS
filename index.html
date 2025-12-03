@@ -7,8 +7,8 @@
 
 <style>
   :root{
-    --header-h: 84px;        /* header height */
-    --footer-h: 60px;        /* footer height */
+    --header-h: 84px;
+    --footer-h: 64px;
     --bg: #fff7ec;
     --card: #ffffff;
     --accent: #d27b1f;
@@ -23,7 +23,8 @@
 
   *{box-sizing:border-box}
   html,body{height:100%;margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:linear-gradient(120deg,#fff4e6 0%,#fffaf4 50%);color:var(--text);-webkit-font-smoothing:antialiased}
-  /* Layout: header fixed, footer fixed, main scrolls */
+
+  /* Header (fixed) */
   .header{
     position:fixed;
     top:12px;
@@ -36,7 +37,7 @@
     display:flex;
     gap:12px;
     align-items:center;
-    padding:12px 16px;
+    padding:10px 14px;
     background:var(--glass);
     border-radius:14px;
     box-shadow:0 8px 26px rgba(0,0,0,0.08);
@@ -49,25 +50,26 @@
   .site-title{font-size:1.25rem;font-weight:800;color:var(--accent-dark);text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .site-sub{font-size:.88rem;color:#866a52;margin-top:4px;white-space:nowrap;overflow:hidden}
   .controls{display:flex;align-items:center;gap:10px}
-  .lang-toggle{padding:8px 12px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);background:#fff;font-weight:700;cursor:pointer}
 
-  /* WhatsApp icon-only button */
-  .wa-btn{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    width:44px;
-    height:44px;
-    border-radius:10px;
-    background:#25D366;
-    box-shadow:0 6px 16px rgba(0,0,0,0.12);
-    text-decoration:none;
-    color:white;
-    border:0;
+  /* Floating language toggle (moved to bottom-right) */
+  .lang-float {
+    position: fixed;
+    right: 18px;
+    bottom: calc(12px + var(--footer-h) + 12px);
+    z-index: 120;
+    background: #fff;
+    border-radius: 999px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    border: 1px solid rgba(0,0,0,0.06);
+    padding: 8px 12px;
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
   }
-  .wa-btn svg{width:22px;height:22px;display:block}
 
-  /* Main scroll area (between header and footer) */
+  .lang-float[aria-pressed="true"] { background: #f3f3f3; }
+
+  /* Scrollable main viewport */
   .viewport {
     position: fixed;
     left: 50%;
@@ -91,6 +93,7 @@
 
   .menu-header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}
   .menu-header h2{margin:0;font-size:14px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+
   /* Pre-order badge box */
   .badge {
     background: linear-gradient(90deg,#fffaf0,#fff2df);
@@ -124,7 +127,7 @@
   /* hide item descriptions only in Tamil mode (controlled by body class) */
   body.tamil .item-desc{display:none}
 
-  /* Footer fixed */
+  /* Footer fixed with WhatsApp icon placed before phone */
   .footer{
     position:fixed;
     left:50%;
@@ -145,20 +148,34 @@
     color:var(--muted);
   }
   .footer .left { font-weight:700; color:var(--accent-dark) }
-  .footer .right { color:var(--muted) }
+  .footer .contact { display:flex; align-items:center; gap:10px; font-weight:700; color:var(--accent-dark) }
 
-  /* small adjustments for narrow screens */
+  .footer .wa-icon {
+    display:inline-flex;
+    width:40px;
+    height:40px;
+    align-items:center;
+    justify-content:center;
+    border-radius:10px;
+    background:#25D366;
+    color:white;
+    text-decoration:none;
+    box-shadow:0 6px 16px rgba(0,0,0,0.12);
+  }
+
+  /* small screens */
   @media (max-width:520px){
     .site-title{font-size:1rem}
     .site-sub{display:none}
     .logo{height:48px}
     .header{height:72px}
+    .lang-float{right:12px;bottom:calc(12px + var(--footer-h) + 8px)}
   }
 </style>
 </head>
 <body>
 
-  <!-- Header with logo left -->
+  <!-- Header -->
   <header class="header" role="banner" aria-label="Top header">
     <div class="header-left">
       <img class="logo" src="https://raw.githubusercontent.com/Mother-Snacks/MS/main/MS_LOGO_RB.png" alt="Mother Snacks logo" />
@@ -171,23 +188,13 @@
       </div>
     </div>
 
-    <nav class="controls" role="navigation" aria-label="Header controls">
-      <button id="langToggle" class="lang-toggle" aria-pressed="false">தமிழ்</button>
-
-      <!-- WhatsApp icon-only button -->
-      <a class="wa-btn" href="https://wa.me/919786447416?text=Hi%2C%20I%20want%20to%20order%20Mother%20Snacks" target="_blank" rel="noopener" aria-label="Order on WhatsApp">
-        <!-- Inline WhatsApp SVG icon -->
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20.52 3.48A11.8 11.8 0 0012 0C5.372 0 .5 4.872.5 11.5c0 2.026.53 4.012 1.533 5.77L.04 23.06l5.984-1.546A11.47 11.47 0 0012 23c6.628 0 11.5-4.872 11.5-11.5 0-3.07-1.196-5.91-3.98-8.02z" fill="#25D366"/>
-          <path d="M17.37 14.24c-.31-.16-1.83-.9-2.11-1.01-.28-.11-.48-.16-.68.16-.2.31-.78 1.01-.95 1.22-.17.2-.34.22-.64.07-.3-.16-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.65-2.07-.17-.3-.02-.45.13-.6.14-.14.31-.36.47-.54.16-.18.21-.3.31-.5.1-.2.05-.36-.02-.5-.07-.14-.68-1.64-.93-2.24-.24-.59-.49-.51-.67-.52-.18-.01-.38-.01-.58-.01-.2 0-.52.07-.79.36-.27.28-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.29 3.07.22.2 2.23 3.4 5.4 4.77 3.18 1.37 3.18.92 3.76.86.58-.06 1.83-.74 2.09-1.47.26-.73.26-1.36.18-1.49-.08-.13-.29-.2-.6-.36z" fill="#fff"/>
-        </svg>
-      </a>
-    </nav>
+    <div class="controls" role="navigation" aria-label="Header controls">
+      <!-- Header no longer has lang toggle or WA button -->
+    </div>
   </header>
 
-  <!-- Scrollable content area -->
+  <!-- Scrollable content -->
   <main class="viewport" role="main" aria-label="Menu content">
-
     <article class="menu-card" aria-labelledby="menu-heading">
       <div class="menu-header">
         <h2 id="menu-heading">Menu &amp; Price List</h2>
@@ -201,34 +208,51 @@
 
         <div class="items">
           <div class="item">
-            <div class="item-top"><div><span class="eng">Ghee Mysore Pak</span><span class="lang-tam">நெய் மைசூர் பக்</span></div><div class="item-price">₹200 / 250g</div></div>
+            <div class="item-top"><div><span class="eng">Ghee Mysore Pak</span><span class="lang-tam">நெய் மைசூர் பக்</span></div><div class="item-price">₹200.00 / 250 gm</div></div>
             <div class="item-desc eng">Rich, soft ghee-based sweet</div>
           </div>
 
           <div class="item">
-            <div class="item-top"><div><span class="eng">Laddu</span><span class="lang-tam">லட்டு</span></div><div class="item-price">₹150 / 250g</div></div>
+            <div class="item-top"><div><span class="eng">Laddu</span><span class="lang-tam">லட்டு</span></div><div class="item-price">₹150.00 / 250 gm</div></div>
             <div class="item-desc eng">Classic boondi laddu</div>
           </div>
 
           <div class="item">
-            <div class="item-top"><div><span class="eng">Maa Laddu</span><span class="lang-tam">மா லட்டு</span></div><div class="item-price">₹150 / 250g</div></div>
+            <div class="item-top"><div><span class="eng">Maa Laddu</span><span class="lang-tam">மா லட்டு</span></div><div class="item-price">₹150.00 / 250 gm</div></div>
             <div class="item-desc eng">Roasted gram flour sweet</div>
           </div>
 
           <div class="item">
-            <div class="item-top"><div><span class="eng">Sweet Somas</span><span class="lang-tam">சோமாஸ்</span></div><div class="item-price">₹75 / 5 pcs</div></div>
+            <div class="item-top"><div><span class="eng">Sweet Somas</span><span class="lang-tam">சோமாஸ்</span></div><div class="item-price">₹75.00 / 5 pcs</div></div>
             <div class="item-desc eng">Crispy coconut-jaggery filling</div>
           </div>
 
           <div class="item">
-            <div class="item-top"><div><span class="eng">Adhirasam</span><span class="lang-tam">அதிரசம்</span></div><div class="item-price">₹150 / 250g</div></div>
+            <div class="item-top"><div><span class="eng">Adhirasam</span><span class="lang-tam">அதிரசம்</span></div><div class="item-price">₹150.00 / 250 gm</div></div>
             <div class="item-desc eng">Traditional jaggery sweet</div>
           </div>
 
           <div class="item">
-            <div class="item-top"><div><span class="eng">Boli</span><span class="lang-tam">போலி</span></div><div class="item-price">₹25 / piece</div></div>
+            <div class="item-top"><div><span class="eng">Boli</span><span class="lang-tam">போலி</span></div><div class="item-price">₹25.00 / piece</div></div>
             <div class="item-desc eng">Soft chana-dal sweet poli</div>
           </div>
+
+          <!-- New requested sweets -->
+          <div class="item">
+            <div class="item-top"><div><span class="eng">Vanilla Burfi</span><span class="lang-tam">வனிலா பர்ஃபி</span></div><div class="item-price">₹185.00 / 250 gm</div></div>
+            <div class="item-desc eng">Milk-based burfi with vanilla</div>
+          </div>
+
+          <div class="item">
+            <div class="item-top"><div><span class="eng">Peanut Burfi</span><span class="lang-tam">நிலக்கடலை பர்ஃபி</span></div><div class="item-price">₹95.00 / 200 gm</div></div>
+            <div class="item-desc eng">Groundnut jaggery squares</div>
+          </div>
+
+          <div class="item">
+            <div class="item-top"><div><span class="eng">Sesame Burfi</span><span class="lang-tam">எள்ளு பர்ஃபி</span></div><div class="item-price">₹65.00 / 100 gm</div></div>
+            <div class="item-desc eng">Til (sesame) sweet squares</div>
+          </div>
+
         </div>
       </section>
 
@@ -239,24 +263,36 @@
 
         <div class="items">
           <div class="item">
-            <div class="item-top"><div><span class="eng">Idly Podi</span><span class="lang-tam">இட்லி பொடி</span></div><div class="item-price">₹75 / 100g</div></div>
+            <div class="item-top"><div><span class="eng">Idly Podi</span><span class="lang-tam">இட்லி பொடி</span></div><div class="item-price">₹75.00 / 100 gm</div></div>
             <div class="item-desc eng">Spicy ground powder for idly/dosa</div>
           </div>
 
           <div class="item">
-            <div class="item-top"><div><span class="eng">Rasam Podi</span><span class="lang-tam">ரசம் பொடி</span></div><div class="item-price">₹60 / 50g</div></div>
+            <div class="item-top"><div><span class="eng">Rasam Podi</span><span class="lang-tam">ரசம் பொடி</span></div><div class="item-price">₹60.00 / 50 gm</div></div>
             <div class="item-desc eng">Fragrant rasam spice mix</div>
           </div>
 
           <div class="item">
-            <div class="item-top"><div><span class="eng">Paruppu Podi</span><span class="lang-tam">பருப்பு பொடி</span></div><div class="item-price">₹75 / 100g</div></div>
+            <div class="item-top"><div><span class="eng">Paruppu Podi</span><span class="lang-tam">பருப்பு பொடி</span></div><div class="item-price">₹75.00 / 100 gm</div></div>
             <div class="item-desc eng">Dal-based powder for rice</div>
           </div>
 
           <div class="item">
-            <div class="item-top"><div><span class="eng">Tomato Thokku</span><span class="lang-tam">தக்காளி தொக்கு</span></div><div class="item-price">₹75 / 100g</div></div>
+            <div class="item-top"><div><span class="eng">Tomato Thokku</span><span class="lang-tam">தக்காளி தொக்கு</span></div><div class="item-price">₹75.00 / 100 gm</div></div>
             <div class="item-desc eng">Tangy tomato pickle</div>
           </div>
+
+          <!-- New requested podi & pickles -->
+          <div class="item">
+            <div class="item-top"><div><span class="eng">Amla Pickle</span><span class="lang-tam">நெல்லிக்காய் ஊறுகாய்</span></div><div class="item-price">₹70.00 / 100 gm</div></div>
+            <div class="item-desc eng">Nellikai (amla) pickle</div>
+          </div>
+
+          <div class="item">
+            <div class="item-top"><div><span class="eng">Mango Pickle</span><span class="lang-tam">மாங்காய் ஊறுகாய்</span></div><div class="item-price">₹70.00 / 100 gm</div></div>
+            <div class="item-desc eng">Traditional raw mango pickle</div>
+          </div>
+
         </div>
       </section>
 
@@ -267,64 +303,84 @@
 
         <div class="items">
           <div class="item">
-            <div class="item-top"><div><span class="eng">Thattai</span><span class="lang-tam">தட்டை</span></div><div class="item-price">₹150 / 250g</div></div>
+            <div class="item-top"><div><span class="eng">Thattai</span><span class="lang-tam">தட்டை</span></div><div class="item-price">₹150.00 / 250 gm</div></div>
             <div class="item-desc eng">Crispy rice crackers</div>
           </div>
 
           <div class="item">
-            <div class="item-top"><div><span class="eng">Mixture</span><span class="lang-tam">மிக்சர்</span></div><div class="item-price">₹140 / 250g</div></div>
+            <div class="item-top"><div><span class="eng">Mixture</span><span class="lang-tam">மிக்சர்</span></div><div class="item-price">₹140.00 / 250 gm</div></div>
             <div class="item-desc eng">South-Indian snack mix</div>
           </div>
 
           <div class="item">
-            <div class="item-top"><div><span class="eng">Ribbon Pakoda</span><span class="lang-tam">ரிப்பன் பக்கோடா</span></div><div class="item-price">₹130 / 250g</div></div>
+            <div class="item-top"><div><span class="eng">Ribbon Pakoda</span><span class="lang-tam">ரிப்பன் பக்கோடா</span></div><div class="item-price">₹130.00 / 250 gm</div></div>
             <div class="item-desc eng">Crispy ribbon murukku</div>
           </div>
 
+          <!-- New requested savoury -->
           <div class="item">
-            <div class="item-top"><div><span class="eng">Kara Boondhi</span><span class="lang-tam">கார பூந்தி</span></div><div class="item-price">₹140 / 250g</div></div>
+            <div class="item-top"><div><span class="eng">Ragi Ribbon Pakoda</span><span class="lang-tam">ராகி ரிப்பன்</span></div><div class="item-price">₹150.00 / 250 gm</div></div>
+            <div class="item-desc eng">Millet-based ribbon pakoda</div>
+          </div>
+
+          <div class="item">
+            <div class="item-top"><div><span class="eng">Kara Boondhi</span><span class="lang-tam">கார பூந்தி</span></div><div class="item-price">₹140.00 / 250 gm</div></div>
             <div class="item-desc eng">Spicy boondhi mix</div>
           </div>
         </div>
       </section>
 
+      <div style="height:18px"></div>
     </article>
   </main>
 
-  <!-- Footer (fixed) -->
+  <!-- Footer (fixed) with WA icon then phone number -->
   <footer class="footer" role="contentinfo">
     <div class="left">Prepared fresh • <strong>Pre-order</strong></div>
-    <div class="right">Call / WhatsApp: <strong>+91 97864 47416</strong></div>
+    <div class="contact">
+      <a class="wa-icon" href="https://wa.me/919786447416?text=Hi%2C%20I%20want%20to%20order%20Mother%20Snacks" target="_blank" rel="noopener" aria-label="Order on WhatsApp">
+        <!-- small WA SVG -->
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M20.52 3.48A11.8 11.8 0 0012 0C5.372 0 .5 4.872.5 11.5c0 2.026.53 4.012 1.533 5.77L.04 23.06l5.984-1.546A11.47 11.47 0 0012 23c6.628 0 11.5-4.872 11.5-11.5 0-3.07-1.196-5.91-3.98-8.02z" fill="#25D366"/>
+          <path d="M17.37 14.24c-.31-.16-1.83-.9-2.11-1.01-.28-.11-.48-.16-.68.16-.2.31-.78 1.01-.95 1.22-.17.2-.34.22-.64.07-.3-.16-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.65-2.07-.17-.3-.02-.45.13-.6.14-.14.31-.36.47-.54.16-.18.21-.3.31-.5.1-.2.05-.36-.02-.5-.07-.14-.68-1.64-.93-2.24-.24-.59-.49-.51-.67-.52-.18-.01-.38-.01-.58-.01-.2 0-.52.07-.79.36-.27.28-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.29 3.07.22.2 2.23 3.4 5.4 4.77 3.18 1.37 3.18.92 3.76.86.58-.06 1.83-.74 2.09-1.47.26-.73.26-1.36.18-1.49-.08-.13-.29-.2-.6-.36z" fill="#fff"/>
+        </svg>
+      </a>
+      <span aria-hidden="true">+</span>
+      <span><strong>91 97864 47416</strong></span>
+    </div>
   </footer>
 
+  <!-- Floating language toggle -->
+  <button id="langToggle" class="lang-float" aria-pressed="false" aria-label="Toggle language">தமிழ்</button>
+
 <script>
-  // Language toggle: English <-> Tamil
-  const langBtn = document.getElementById('langToggle');
-  let tamil = false;
-  langBtn.addEventListener('click', () => {
-    tamil = !tamil;
-    // show/hide language spans
-    document.querySelectorAll('.lang-tam').forEach(el => el.style.display = tamil ? 'inline' : 'none');
-    document.querySelectorAll('.eng').forEach(el => el.style.display = tamil ? 'none' : 'inline');
-    // body class to hide item descriptions in Tamil
-    if (tamil) {
-      document.body.classList.add('tamil');
-      langBtn.textContent = 'English';
-      langBtn.setAttribute('aria-pressed','true');
-    } else {
-      document.body.classList.remove('tamil');
-      langBtn.textContent = 'தமிழ்';
-      langBtn.setAttribute('aria-pressed','false');
+  // Language toggle (floating)
+  (function(){
+    const langBtn = document.getElementById('langToggle');
+    let tamil = false;
+
+    function setLangUI(isTamil) {
+      document.querySelectorAll('.lang-tam').forEach(el => el.style.display = isTamil ? 'inline' : 'none');
+      document.querySelectorAll('.eng').forEach(el => el.style.display = isTamil ? 'none' : 'inline');
+      document.body.classList.toggle('tamil', isTamil);
+      langBtn.setAttribute('aria-pressed', isTamil ? 'true' : 'false');
+      langBtn.textContent = isTamil ? 'English' : 'தமிழ்';
     }
+
+    langBtn.addEventListener('click', () => {
+      tamil = !tamil;
+      setLangUI(tamil);
+    });
+
+    // initialize English
+    setLangUI(false);
+  })();
+
+  // Accessibility: focus outline for WA icon
+  document.querySelectorAll('.wa-icon').forEach(el=>{
+    el.addEventListener('focus', e=> e.target.style.outline = '3px solid rgba(37,211,102,0.25)');
+    el.addEventListener('blur', e=> e.target.style.outline = 'none');
   });
-
-  // initialize to English
-  document.querySelectorAll('.lang-tam').forEach(el => el.style.display = 'none');
-
-  // Accessibility: focus outline for keyboard users on wa button
-  document.querySelector('.wa-btn').addEventListener('focus', (e) => e.target.style.outline = '3px solid rgba(37,211,102,0.25)');
-  document.querySelector('.wa-btn').addEventListener('blur', (e) => e.target.style.outline = 'none');
 </script>
-
 </body>
 </html>
