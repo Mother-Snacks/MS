@@ -20,9 +20,12 @@
     --podi:#fffbe6;
     --savory:#f0fff0;
     --text:#241a14;
+    --glass-border: rgba(255,255,255,0.6);
     --card-shadow: 0 10px 30px rgba(16,24,32,0.06);
+    --accent-glow: 0 6px 18px rgba(210,123,31,0.18);
   }
 
+  /* Page background: subtle radial + linear for liquid feel */
   html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:
     radial-gradient(1000px 400px at 10% 10%, rgba(255,230,200,0.15), transparent 10%),
     linear-gradient(180deg,var(--bg-start),var(--bg-end));
@@ -30,7 +33,7 @@
 
   *{box-sizing:border-box}
 
-  /* Header (frosted glass) */
+  /* Fixed Header - frosted glass card */
   .header{
     position:fixed;
     top:12px;
@@ -75,7 +78,7 @@
   }
   .lang-float[aria-pressed="true"]{background:#f5f7ff}
 
-  /* Scrollable viewport */
+  /* Scrollable viewport (between header & footer) */
   .viewport {
     position: fixed;
     left: 50%;
@@ -102,6 +105,7 @@
   .menu-header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
   .menu-header h2{margin:0;font-size:14px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
 
+  /* Pre-order badge (smaller on mobile) */
   .badge {
     background: linear-gradient(90deg, rgba(255,255,255,0.9), rgba(250,245,240,0.85));
     padding:6px 10px;
@@ -117,9 +121,9 @@
   .section{padding:14px;border-radius:12px;margin-bottom:16px}
   .section h3{margin:0 0 6px 0;font-size:1.12rem;color:var(--accent-dark);display:flex;align-items:center;gap:8px}
   .section .tagline{font-size:0.92rem;color:var(--muted);margin-bottom:10px}
-  .section-sweets{background: linear-gradient(180deg,#fff2f4, rgba(255,240,245,0.6));}
-  .section-podi{background: linear-gradient(180deg,#fffdf0, rgba(255,250,240,0.6));}
-  .section-savory{background: linear-gradient(180deg,#f6fff6, rgba(245,255,245,0.6));}
+  .section-sweets{background: linear-gradient(180deg,var(--sweets), rgba(255,240,245,0.6));}
+  .section-podi{background: linear-gradient(180deg,var(--podi), rgba(255,250,240,0.6));}
+  .section-savory{background: linear-gradient(180deg,var(--savory), rgba(245,255,245,0.6));}
 
   .items{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
   @media(max-width:760px){.items{grid-template-columns:1fr}}
@@ -127,54 +131,55 @@
     position:relative;
     padding:12px;
     border-radius:12px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.88));
+    background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.85));
     box-shadow: 0 6px 18px rgba(18,20,22,0.03);
     overflow: visible;
   }
 
-  /* border using pseudo-element: the BOX stays fixed; its background gradient's position is animated so colors flow around */
+  /* Multicolor animated border: use pseudo-element with conic-gradient + mask */
   .item::before{
     content:"";
     position:absolute;
     inset:-1.6px;
     z-index:0;
     border-radius:14px;
-    background: conic-gradient(
-      #ff5f6d, #ffc371, #7efc8a, #6ee7ff, #b892ff, #ff99c8, #ff5f6d
-    );
-    background-size: 200% 200%;
-    /* mask to create border only (inner transparent area): keeps box shape fixed */
+    padding:2px;
+    background: conic-gradient(from 180deg at 50% 50%,
+      #ff5f6d, #ffc371, #7efc8a, #6ee7ff, #b892ff, #ff99c8, #ff5f6d);
     -webkit-mask:
       linear-gradient(#000 0 0) content-box,
       linear-gradient(#000 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
-    padding: 2px; /* width of the colored border */
+    animation: rotateColors 5s linear infinite;
+    opacity:0.95;
     pointer-events:none;
-    /* animate the gradient positions so colors move around the border while the element stays put */
-    animation: moveColors 6s linear infinite;
-    opacity:0.98;
   }
 
-  /* inner content layer */
+  /* inner white background effect: create inner box via box-shadow */
   .item > .inner{
     position:relative;
     z-index:1;
-    border-radius:8px;
+    border-radius:10px;
+    background:transparent;
     display:block;
     padding:0;
-    background: transparent;
   }
 
   .item-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-weight:700;position:relative;z-index:2}
   .item-price{color:#0d6b2f;font-weight:800;white-space:nowrap}
   .item-desc{margin-top:6px;font-size:.86rem;color:var(--muted);position:relative;z-index:2}
 
+  /* small adjustments to keep text readable over glass */
+  .item .eng{color:var(--text)}
+  .item .lang-tam{color:var(--text)}
+
+  /* language helpers */
   .eng{display:inline}
   .lang-tam{display:none}
   body.tamil .item-desc{display:none}
 
-  /* Footer */
+  /* Footer fixed, smaller text */
   .footer{
     position:fixed;
     left:50%;
@@ -198,14 +203,15 @@
   }
   .footer .left{font-weight:700;color:var(--accent-dark); font-size:0.9rem}
   .footer .contact{display:flex;align-items:center;gap:8px;color:var(--accent-dark);font-weight:700;font-size:0.92rem}
+
+  /* compact inline WhatsApp glyph (no circle) */
   .wa-icon{display:inline-flex;align-items:center;justify-content:center;color:var(--accent-dark);text-decoration:none}
   .wa-icon svg{width:16px;height:16px;display:block;fill:currentColor}
 
-  /* Animation: move gradient's background-position so colors "flow" */
-  @keyframes moveColors {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+  /* animations */
+  @keyframes rotateColors{
+    from{transform:rotate(0deg)}
+    to{transform:rotate(360deg)}
   }
 
   /* Responsive tweaks */
@@ -236,7 +242,7 @@
     </div>
 
     <div class="controls" role="navigation" aria-label="Header controls">
-      <!-- intentionally empty -->
+      <!-- kept intentionally empty -->
     </div>
   </header>
 
@@ -380,7 +386,7 @@
             <div class="item-desc eng">Crispy ribbon murukku</div>
           </div>
 
-          <!-- updated Ragi Tamil -->
+          <!-- updated Tamil for Ragi -->
           <div class="item">
             <span class="inner" aria-hidden="true"></span>
             <div class="item-top"><div><span class="eng">Ragi Ribbon Pakoda</span><span class="lang-tam">ராகி ரிப்பன் பக்கோடா</span></div><div class="item-price">₹150.00 / 250 gm</div></div>
@@ -404,6 +410,7 @@
     <div class="left">Prepared fresh</div>
     <div class="contact">
       <a class="wa-icon" href="https://wa.me/919786447416?text=Hi%2C%20I%20want%20to%20order%20Mother%20Snacks" target="_blank" rel="noopener" aria-label="Order on WhatsApp">
+        <!-- compact WhatsApp glyph (single-color, small) -->
         <svg viewBox="0 0 24 24" width="16" height="16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
           <path d="M20.52 3.48A11.8 11.8 0 0012 0C5.372 0 .5 4.872.5 11.5c0 2.026.53 4.012 1.533 5.77L.04 23.06l5.984-1.546A11.47 11.47 0 0012 23c6.628 0 11.5-4.872 11.5-11.5 0-3.07-1.196-5.91-3.98-8.02z" fill="#25D366"/>
           <path d="M17.37 14.24c-.31-.16-1.83-.9-2.11-1.01-.28-.11-.48-.16-.68.16-.2.31-.78 1.01-.95 1.22-.17.2-.34.22-.64.07-.3-.16-1.26-.46-2.4-1.48-.89-.79-1.48-1.77-1.65-2.07-.17-.3-.02-.45.13-.6.14-.14.31-.36.47-.54.16-.18.21-.3.31-.5.1-.2.05-.36-.02-.5-.07-.14-.68-1.64-.93-2.24-.24-.59-.49-.51-.67-.52-.18-.01-.38-.01-.58-.01-.2 0-.52.07-.79.36-.27.28-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.29 3.07.22.2 2.23 3.4 5.4 4.77 3.18 1.37 3.18.92 3.76.86.58-.06 1.83-.74 2.09-1.47.26-.73.26-1.36.18-1.49-.08-.13-.29-.2-.6-.36z" fill="#fff"/>
@@ -439,7 +446,7 @@
     setLangUI(false);
   })();
 
-  // WA icon focus outline
+  // keep WA icon keyboard-focus accessible
   document.querySelectorAll('.wa-icon').forEach(el=>{
     el.addEventListener('focus', e=> e.target.style.outline = '3px solid rgba(37,211,102,0.18)');
     el.addEventListener('blur', e=> e.target.style.outline = 'none');
